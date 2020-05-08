@@ -1,5 +1,7 @@
 using System;
 using System.Linq;
+using System.IO;
+using System.Text;
 
 //...............................................................Classe Pessoa
 
@@ -745,7 +747,7 @@ class Troca:Pedido{
   public Troca(){
 
   }
-  
+
   public DateTime GetDataTroca(){
     return dataTroca;
   }
@@ -812,24 +814,25 @@ class Troca:Pedido{
 class MainClass {
   public static void Main (string[] args) {
     
-    Console.WriteLine ("Tudo ok continue!!!");
-   
- // Pessoa.VerificarCpf(Console.ReadLine());//teste cpf
- // if(Pessoa.VerificaTelefone(Console.ReadLine())){  Console.WriteLine ("Hello World");}
- // if(Pessoa.VerificaPalavra(Console.ReadLine())){  Console.WriteLine ("OK!!!");}
- // Pessoa p = new Pessoa();  
- // p.SetDataNascimento(Console.ReadLine(),Console.ReadLine(),Console.ReadLine());
- // Console.WriteLine (p.GetDataNascimento()+"OK!!!");
- //Funcionario f = new Funcionario(); 
- //f.SetHorarioEntrada(Console.ReadLine(),Console.ReadLine());
- //f.SetHorarioSaida(Console.ReadLine(),Console.ReadLine());
-  //Veiculo v = new Veiculo();
-  //v.SetDataFabricacao(Console.ReadLine(),Console.ReadLine(),Console.ReadLine());
-  //Console.WriteLine (v.GetDataFabricacao()+"OK!!!");
+  Console.WriteLine ("\n..........Loja de Automoveis Online..........");
+  Console.WriteLine ("....Compre seu veiculo sem sair de casa......\n");
+  Console.WriteLine ("Faça seu login ou Registre-se\n");
+  Console.WriteLine ("Digite 1: para Logar");
+  Console.WriteLine ("Digite 2: para se Registrar");
+  Console.WriteLine ("Tudo ok!!!, continue....");
+ }
 
- //Veiculo v = new Veiculo();
- //v.SetPlaca(Console.ReadLine());
- // Console.WriteLine (v.GetPlaca()+"OK!!!");
+ public static void EscreverArquivo(string frase,string arquivo){//arquivo = "dados.txt"
+   
+    FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Write);
+
+    StreamWriter sw = new StreamWriter(meuArq, Encoding.UTF8);
+
+    string str = frase;
+    sw.WriteLine(str);
+    
+    sw.Close();
+    meuArq.Close();
  }
 
 }
