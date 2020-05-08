@@ -339,6 +339,38 @@ class Funcionario:Pessoa{
 }
 //...............................................................Classe Cliente
 class Cliente:Pessoa{
+  private int comprasRealizadas;
+  private double valorTotalCompras;
+
+  public void SetComprasRealizadas(int nc){
+
+    int novaCompra = nc;
+
+    if(novaCompra > comprasRealizadas){
+
+      comprasRealizadas += novaCompra;
+    }
+    
+  }
+
+  public int GetComprasRealizadas(){
+    return comprasRealizadas;
+  }
+
+  public double GetValorTotalCompras(){
+    return valorTotalCompras;
+  }
+
+  public void SetValorTotalCompras(double vt){
+
+    int valorTotal = vt;
+
+    if(valorTotal > 0){
+
+      valorTotalCompras += valorTotal;
+    }
+    
+  }
 
 }
 //...............................................................Classe Veiculo
