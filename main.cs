@@ -1,11 +1,39 @@
 using System;
 using System.Linq;
 
+//...............................................................Classe Pessoa
+
 class Pessoa{
  private string nome;
  private string cpf;
  private DateTime dataNascimento;
  private int telefone;
+ private string login;
+ private string senha;
+
+ public string GetLogin(){
+   return login;
+ }
+
+ public void SetLogin(string l){
+   string valor = l;
+   if(valor.Length > 4){//login maior que 4 digitos
+     login = l;
+    }
+ 
+ }
+ 
+public string GetSenha(){
+   return senha;
+ }
+
+ public void SetSenha(string s){
+   string valor = s;
+   if(valor.Length == 4){//senha igual a 4 digitos
+     senha = s;
+    }
+ 
+ }
 
  public string GetNome(){
    return nome;
@@ -108,6 +136,18 @@ public static bool VerificaTelefone(string tel){
 
 }
 
+public int GetIdade(){
+
+    return CalcularIdade(dataNascimento);
+}
+
+public static int CalcularIdade(DateTime ano){
+
+    int anoNasc = ano.Year;// pego o ano do nascimento
+    DateTime data = DateTime.Now;//pego a data agora
+    return (data.Year - anoNasc);//subtraio o ano de agora pelo nascimento
+}
+
 public static bool VerificarCpf(string cpFentrada) {
     string entrada = cpFentrada;
     int[] cpf = new int[11];
@@ -186,23 +226,134 @@ public static bool VerificarCpf(string cpFentrada) {
   }
 
 }
+//...............................................................Classe Funcionario
+class Funcionario:Pessoa{
+  protected string departamento;
+  protected DateTime dataAdmissao;
+  private DateTime horarioEntrada;
+  private DateTime horarioSaida;
 
-class Funcionario{
+  public void SetDepartamento(string d){
+
+    string entrada = d;
+
+    if(entrada.Length > 4)//maior que 4 digitos
+    {
+      departamento = d;
+    }else{
+      Console.WriteLine ("departamento invalido!!!");
+    }
+  }
+
+  public string SetDepartamento(){
+
+    return departamento;
+  }
+
+  public void SetDataAdmissao(string ano,string dia,string mes){
+
+      if(VerificaData(ano,4)){//...................................funcao statica de Pessoa
+
+        if(VerificaData(dia,2)){
+
+            if(VerificaData(mes,2)){
+
+                dataAdmissao = new DateTime(Convert.ToInt32(ano),Convert.ToInt32(mes),Convert.ToInt32(dia));
+            }else{
+                    Console.WriteLine ("data invalida!!!");
+                  }
+      
+        }else{
+                Console.WriteLine ("data invalida!!!");
+              }
+      
+    }else{
+            Console.WriteLine ("data invalida!!!");
+          }
+  }
+  public DateTime GetDataAdmissao(){
+    return dataAdmissao;
+  }
+
+  public void SetHorarioEntrada(string h,string m){
+
+    string hora = h;
+    string minutos = m;
+    DateTime data = DateTime.Now;
+
+    if(VerificaData(hora,2)){//dois digitos hora
+
+      if(VerificaData(minutos,2)){//dois digitos minuto
+
+       horarioEntrada = new DateTime(data.Year, data.Day,data.Month, Convert.ToInt32(hora), Convert.ToInt32(minutos), 0);
+
+      }else{
+
+           Console.WriteLine ("minutos invalidos!!!");
+
+      }
+
+    }else{
+       Console.WriteLine ("hora invalida!!!");
+    }
+    
+  }
+
+  public DateTime GetHorarioEntrada(){
+    return horarioEntrada;
+  }
+
+  public void SetHorarioSaida(string h,string m){
+
+    string hora = h;
+    string minutos = m;
+    DateTime data = DateTime.Now;
+
+    if(VerificaData(hora,2)){//dois digitos hora
+
+      if(VerificaData(minutos,2)){//dois digitos minuto
+
+       horarioSaida = new DateTime(data.Year, data.Day,data.Month, Convert.ToInt32(hora), Convert.ToInt32(minutos), 0);
+
+      }else{
+
+           Console.WriteLine ("minutos invalidos!!!");
+
+      }
+
+    }else{
+       Console.WriteLine ("hora invalida!!!");
+    }
+
+  }
+
+  public DateTime GetHorarioSaida(){
+    return horarioSaida;
+  }
+
+  public int GetTempodeCasa(){
+ 
+    return CalcularIdade(dataAdmissao);
+  }
 
 }
-
-class Cliente{
+//...............................................................Classe Cliente
+class Cliente:Pessoa{
 
 }
-
+//...............................................................Classe Veiculo
 class Veiculo{
 
 }
-
-class Carro{
+//...............................................................Classe Carro
+class Carro:Veiculo{
 
 }
+//...............................................................Classe moto
+class Moto:Veiculo{
 
+}
+//...............................................................Classe Troca
 class Troca{
 
 }
@@ -210,7 +361,7 @@ class Troca{
 class MainClass {
   public static void Main (string[] args) {
     
-    Console.WriteLine ("Hello World");
+    Console.WriteLine ("Tudo ok continue!!!");
    
    // Pessoa.VerificarCpf(Console.ReadLine());//teste cpf
   // if(Pessoa.VerificaTelefone(Console.ReadLine())){  Console.WriteLine ("Hello World");}
@@ -218,8 +369,11 @@ class MainClass {
  // Pessoa p = new Pessoa();  
  // p.SetDataNascimento(Console.ReadLine(),Console.ReadLine(),Console.ReadLine());
  // Console.WriteLine (p.GetDataNascimento()+"OK!!!");
- 
-    
-  }
+ //Funcionario f = new Funcionario(); 
+ //f.SetHorarioEntrada(Console.ReadLine(),Console.ReadLine());
+ //f.SetHorarioSaida(Console.ReadLine(),Console.ReadLine());
+
+
+ }
 
 }
