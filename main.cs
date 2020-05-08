@@ -820,9 +820,42 @@ class MainClass {
   Console.WriteLine ("Digite 1: para Logar");
   Console.WriteLine ("Digite 2: para se Registrar");
   Console.WriteLine ("Tudo ok!!!, continue....");
+  Leitura("cliente.txt");
  }
 
- public static void EscreverArquivo(string frase,string arquivo){//arquivo = "dados.txt"
+
+ public static void Leitura(string arquivo){//arquivo-->dados.txt
+    
+    FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Read);
+    StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
+
+    int i = 0;
+    string palavras ="";
+
+    while(!sr.EndOfStream){
+      string str = sr.ReadLine();
+    
+      for(int i2 = 0;i2<str.Length; i2++)
+      {
+       
+       if(str[i2] ==' '){
+         Console.WriteLine(palavras);///dados
+          i++;
+          palavras = "";
+       }else{
+          palavras +=str[i2];
+       }
+      
+      }
+      Console.WriteLine(palavras);//ultimo dado
+      
+    }
+    Console.WriteLine(i);
+    sr.Close();
+    meuArq.Close();
+  }
+
+ public static void Escrita(string frase,string arquivo){//arquivo = "dados.txt"
    
     FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Write);
 
@@ -834,5 +867,6 @@ class MainClass {
     sw.Close();
     meuArq.Close();
  }
+
 
 }
