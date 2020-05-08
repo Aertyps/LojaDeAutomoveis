@@ -1,7 +1,225 @@
 using System;
+using System.Linq;
+
+class Pessoa{
+ private string nome;
+ private string cpf;
+ private DateTime dataNascimento;
+ private int telefone;
+
+ public string GetNome(){
+   return nome;
+ }
+
+ public void SetNome(string n){
+
+   if(VerificaPalavra(n)){
+     nome = n;
+    }
+ 
+ }
+ 
+  public string GetCpf(){
+   return cpf;
+ }
+
+ public void SetCpf(string c){
+
+   if(VerificarCpf(c)){
+      cpf = c;
+   }
+   
+ }
+
+ public DateTime GetDataNascimento(){
+   return dataNascimento;
+ }
+ 
+ public void SetDataNascimento(string ano,string dia,string mes){
+
+  if(VerificaData(ano,4)){
+
+    if(VerificaData(dia,2)){
+
+      if(VerificaData(mes,2)){
+
+          dataNascimento = new DateTime(Convert.ToInt32(ano),Convert.ToInt32(mes),Convert.ToInt32(dia));
+      }
+   
+    }
+    
+  }
+   
+ }
+
+public int GetTelefone(){
+  return telefone;
+}
+
+public void SetTelefone(string t){
+  if(VerificaTelefone(t)){
+    telefone = Convert.ToInt32(t);
+  }
+ 
+}
+
+public static bool VerificaData(string data,int tam){
+
+  string valor = data;
+
+    if( valor.Length == tam && valor.All(char.IsDigit)){//verifica se tem so numero
+
+      return true;
+
+    }else{
+
+      return false;
+    }
+
+}
+
+public static bool VerificaPalavra(string letra){
+
+  string valor = letra;
+
+    if( valor.Length != 0 && valor.All(char.IsLetter)){//verifica se tem so letra
+
+      return true;
+
+    }else{
+
+      return false;
+    }
+
+}
+
+public static bool VerificaTelefone(string tel){
+
+  string valor = tel;
+
+    if( valor.Length == 9 && valor.All(char.IsDigit)){//verifica se tem so numero
+
+      return true;
+
+    }else{
+
+      return false;
+    }
+
+}
+
+public static bool VerificarCpf(string cpFentrada) {
+    string entrada = cpFentrada;
+    int[] cpf = new int[11];
+    int[] digto1 = new int[10];
+    int ind = 10,soma = 0,digVerif1 = 0;
+  
+    if(entrada.Length == 11)
+    {
+      for(int i = 0;i < 11; i++)
+      {
+       cpf[i] = (int)char.GetNumericValue(entrada[i]);
+      
+      }
+
+      for(int i2 = 0;i2 < 9; i2++)
+      {
+       digto1[i2] = cpf[i2]*ind;
+       ind--;
+       soma += digto1[i2];
+      }
+
+      Console.WriteLine ("A soma do primeiro digito deu "+soma);
+      digVerif1 = (soma -((soma/11)*11));
+
+      if(digVerif1 >= 2){
+        digVerif1 = (11 - digVerif1);
+      }else{
+        digVerif1 = 0;
+      }
+    
+     if(cpf[9] == digVerif1)
+     {
+
+        Console.WriteLine ("O primeiro digito verificador é "+digVerif1+" confere!");
+
+        ind = 11;
+        soma = 0;
+        for(int i3 = 0;i3 < 10; i3++)
+        {
+        digto1[i3] = cpf[i3]*ind;
+        ind--;
+        soma += digto1[i3];
+        }
+
+        Console.WriteLine ("\nA soma do segundo digito deu "+soma);
+        digVerif1 = (soma -((soma/11)*11));
+
+        if(digVerif1 >= 2){
+          digVerif1 = (11 - digVerif1);
+        }else{
+          digVerif1 = 0;
+        }
+
+       if(cpf[10] == digVerif1)
+        {
+         Console.WriteLine ("O segundo digito verificador é "+digVerif1+" esta correto!");
+         return true;
+
+        }else{
+          Console.WriteLine ("O segundo digito verificador é "+cpf[10]+" esta incorreto!");
+          Console.WriteLine ("deveria ser "+digVerif1);
+          return false;
+        }
+
+     }else{
+        Console.WriteLine ("O primeiro digito verificador é "+cpf[9]+" esta incorreto!");
+        Console.WriteLine ("deveria ser "+digVerif1);
+        return false;
+     }
+
+    }else{
+      Console.WriteLine ("numero de digitos do cpf incorreto");
+       return false;
+    }
+  
+  }
+
+}
+
+class Funcionario{
+
+}
+
+class Cliente{
+
+}
+
+class Veiculo{
+
+}
+
+class Carro{
+
+}
+
+class Troca{
+
+}
 
 class MainClass {
   public static void Main (string[] args) {
+    
     Console.WriteLine ("Hello World");
+   
+   // Pessoa.VerificarCpf(Console.ReadLine());//teste cpf
+  // if(Pessoa.VerificaTelefone(Console.ReadLine())){  Console.WriteLine ("Hello World");}
+  // if(Pessoa.VerificaPalavra(Console.ReadLine())){  Console.WriteLine ("OK!!!");}
+ // Pessoa p = new Pessoa();  
+ // p.SetDataNascimento(Console.ReadLine(),Console.ReadLine(),Console.ReadLine());
+ // Console.WriteLine (p.GetDataNascimento()+"OK!!!");
+ 
+    
   }
+
 }
