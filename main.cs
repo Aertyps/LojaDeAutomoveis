@@ -11,6 +11,10 @@ class Pessoa{
  private string login;
  private string senha;
 
+ public Pessoa(){//parametros a definir
+
+ }
+
  public string GetLogin(){
    return login;
  }
@@ -250,6 +254,23 @@ class Funcionario:Pessoa{
   private DateTime horarioEntrada;
   private DateTime horarioSaida;
 
+  public Funcionario(string n,string c,string a,string d,string m,string t,string l,string s,string dp,string a2,string d2,string m2, string h1,string s1, string h2,string s2){
+    SetNome(n);
+    SetCpf(c);
+    SetDataNascimento(a,d,m);
+    SetTelefone(t);
+    SetLogin(l);
+    SetSenha(s);
+    SetDepartamento(dp);
+    SetDataAdmissao(a2,d2,m2);
+    SetHorarioEntrada(h1,s1);
+    SetHorarioSaida(h2,s2);
+  }
+
+  public Funcionario(){
+
+  }
+
   public void SetDepartamento(string d){
 
     string entrada = d;
@@ -359,6 +380,22 @@ class Cliente:Pessoa{
   private int comprasRealizadas;
   private double valorTotalCompras;
 
+   public Cliente(string n,string c,string a,string d,string m,string t,string l,string s,int n2,double v){
+    SetNome(n);
+    SetCpf(c);
+    SetDataNascimento(a,d,m);
+    SetTelefone(t);
+    SetLogin(l);
+    SetSenha(s);
+    SetComprasRealizadas(n2);//
+    SetValorTotalCompras(v);//manda o valor atual p somar com o antigo
+    
+  }
+
+  public Cliente(){
+
+  }
+
   public void SetComprasRealizadas(int nc){
 
     int novaCompra = nc;
@@ -403,6 +440,10 @@ class Veiculo{
   private string marca;
   private string motor;
   private string combustivel;
+
+  public Veiculo(){
+
+  }
 
   public string GetTipo(){
   
@@ -550,6 +591,26 @@ class Carro:Veiculo{
   private int qtdPortas;
   private bool carroceria;
   private int codigo;
+  
+  public Carro(string t,string a,string d,string ma,string p,double v,string c,string m,string mt,string cb,int qtd,bool crr,int cd){
+
+    SetTipo(t);
+    SetDataFabricacao(a,d,m);//ano dia mes
+    SetPlaca(p);
+    SetValor(v);
+    SetCor(c);
+    SetMarca(ma);
+    SetMotor(mt);
+    SetCombustivel(cb);
+    SetQtdPortas(qtd);
+    SetCarroceria(crr);
+    SetCodigo(cd);
+
+  }
+
+  public Carro(){
+
+  }
 
   public int GetQtdPortas(){
     return qtdPortas;
@@ -596,6 +657,26 @@ class Moto:Veiculo{
   private string tipoDeTanque;
   private string modelo;
   private int codigo;
+
+  public Moto(string t,string a,string d,string ma,string p,double v,string c,string m,string mt,string cb,int cd,string tq, string md){
+
+    SetTipo(t);
+    SetDataFabricacao(a,d,m);//ano dia mes
+    SetPlaca(p);
+    SetValor(v);
+    SetCor(c);
+    SetMarca(ma);
+    SetMotor(mt);
+    SetCombustivel(cb);
+    SetCodigo(cd);
+    SetTipoDeTanque(tq);
+    SetModelo(md);
+
+  }
+
+  public Moto(){
+
+  }
 
   public string GetTipoDeTanque(){
     return tipoDeTanque;
@@ -660,7 +741,11 @@ class Troca:Pedido{
   private DateTime dataTroca;
   private string motivo;
   private double diferencaValor;
+  
+  public Troca(){
 
+  }
+  
   public DateTime GetDataTroca(){
     return dataTroca;
   }
