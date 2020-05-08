@@ -19,6 +19,8 @@ class Pessoa{
    string valor = l;
    if(valor.Length > 4){//login maior que 4 digitos
      login = l;
+    }else{
+       Console.WriteLine ("Login invalido,quantidade de caracteres menor que  4 !!!");
     }
  
  }
@@ -28,9 +30,16 @@ public string GetSenha(){
  }
 
  public void SetSenha(string s){
+
    string valor = s;
+
    if(valor.Length == 4){//senha igual a 4 digitos
-     senha = s;
+
+      senha = s;
+
+    }else{
+
+       Console.WriteLine ("senha invalida!!!");
     }
  
  }
@@ -43,6 +52,8 @@ public string GetSenha(){
 
    if(VerificaPalavra(n)){
      nome = n;
+    }else{
+       Console.WriteLine ("Nome invalido!!!");
     }
  
  }
@@ -72,10 +83,16 @@ public string GetSenha(){
       if(VerificaData(mes,2)){
 
           dataNascimento = new DateTime(Convert.ToInt32(ano),Convert.ToInt32(mes),Convert.ToInt32(dia));
+      }else{
+         Console.WriteLine ("data invalida!!!");
       }
    
+    }else{
+       Console.WriteLine ("data invalida!!!");
     }
     
+  }else{
+     Console.WriteLine ("data invalida!!!");
   }
    
  }
@@ -346,7 +363,7 @@ class Cliente:Pessoa{
 
     int novaCompra = nc;
 
-    if(novaCompra > comprasRealizadas){
+    if(novaCompra > 0){
 
       comprasRealizadas += novaCompra;
     }
@@ -363,11 +380,13 @@ class Cliente:Pessoa{
 
   public void SetValorTotalCompras(double vt){
 
-    int valorTotal = vt;
+    double valorTotal = vt;
 
     if(valorTotal > 0){
 
       valorTotalCompras += valorTotal;
+    }else{
+       Console.WriteLine ("Valor total invalido!!!");
     }
     
   }
@@ -376,18 +395,333 @@ class Cliente:Pessoa{
 //...............................................................Classe Veiculo
 class Veiculo{
 
+  private string tipo;
+  private DateTime dataFabricacao;
+  private string placa;
+  private double valor;
+  private string cor;
+  private string marca;
+  private string motor;
+  private string combustivel;
+
+  public string GetTipo(){
+  
+    return tipo;
+  }
+
+  public void SetTipo(string t){
+
+    string entrada = t;
+
+    if(entrada.Length > 2)//maior que 2 digitos
+    {
+      tipo = entrada;
+    }else{
+       Console.WriteLine ("tipo invalido!!!");
+    }
+  }
+
+  public string GetPlaca(){
+    return placa;
+  }
+
+  public void SetPlaca(string p){
+
+   string entrada = p;
+
+   if(entrada.Length == 7)//maior que 2 digitos)
+      {
+        placa = entrada;
+      }else{
+         Console.WriteLine ("placa invalida!!!");
+      }
+  }
+
+  public void SetDataFabricacao(string ano,string dia,string mes){
+
+      if(Pessoa.VerificaData(ano,4)){//...................................funcao statica de Pessoa
+
+        if(Pessoa.VerificaData(dia,2)){
+
+            if(Pessoa.VerificaData(mes,2)){
+
+                dataFabricacao = new DateTime(Convert.ToInt32(ano),Convert.ToInt32(mes),Convert.ToInt32(dia));
+            }else{
+                    Console.WriteLine ("data invalida!!!");
+                  }
+      
+        }else{
+                Console.WriteLine ("data invalida!!!");
+              }
+      
+    }else{
+            Console.WriteLine ("data invalida!!!");
+          }
+  }
+
+  public DateTime GetDataFabricacao(){
+    return dataFabricacao;
+  }
+
+  public double GetValor(){
+      return valor;
+  }
+
+  public void SetValor(double v){
+
+    double valor1 = v;
+
+    if(valor1 > 0){
+
+        valor = v;
+    }else{
+       Console.WriteLine ("valor invalido!!!");
+    }
+  }
+
+  public string GetCor(){
+    return cor;
+  }
+
+  public void SetCor(string c){
+
+    string entrada = c;
+
+    if(entrada.Length > 2)//maior que 2 digitos
+    {
+      cor = entrada;
+    }else{
+       Console.WriteLine ("cor invalida!!!");
+    }
+  }
+
+  public string GetMarca(){
+    return marca;
+  }
+
+  public void SetMarca(string m){
+
+    string entrada = m;
+
+    if(entrada.Length > 2)//maior que 2 digitos
+    {
+      marca = m;
+    }else{
+       Console.WriteLine ("marca invalida!!!");
+    }
+  }
+
+  public string GetMotor(){
+    return motor;
+  }
+
+  public void SetMotor(string m){
+
+    string entrada = m;
+
+    if(entrada.Length > 2)//maior que 2 digitos
+    {
+      motor = entrada;
+    }else{
+       Console.WriteLine ("motor invalido!!!");
+    }
+  }
+
+    public string GetCombustivel(){
+    return combustivel;
+  }
+
+  public void SetCombustivel(string c){
+
+    string entrada = c;
+
+    if(entrada.Length > 2)//maior que 2 digitos
+    {
+      combustivel = entrada;
+    }else{
+       Console.WriteLine ("combustivel invalido!!!");
+    }
+  }
+
 }
 //...............................................................Classe Carro
 class Carro:Veiculo{
+
+  private int qtdPortas;
+  private bool carroceria;
+  private int codigo;
+
+  public int GetQtdPortas(){
+    return qtdPortas;
+  }
+
+  public void SetQtdPortas(int p){
+
+    int porta = p;
+
+    if(porta >= 2){
+        qtdPortas= porta;
+    }else{
+       Console.WriteLine ("quantidade de portas invalida!!!");
+    }
+    
+  }
+  public int GetCodigo(){
+    return codigo;
+  }
+
+  public void SetCodigo(int c){
+    
+    int cod = c;
+
+    if(cod > 0){
+        codigo = cod;
+    }else{
+       Console.WriteLine ("codigo invalido!!!");
+    }
+    
+  }
+  public bool GetCarroceria(){
+    return carroceria;
+  }
+
+  public void SetCarroceria(bool c){
+    carroceria = c;
+  }
 
 }
 //...............................................................Classe moto
 class Moto:Veiculo{
 
-}
-//...............................................................Classe Troca
-class Troca{
+  private string tipoDeTanque;
+  private string modelo;
+  private int codigo;
 
+  public string GetTipoDeTanque(){
+    return tipoDeTanque;
+  }
+
+  public void SetTipoDeTanque(string t){
+
+    string tanque = t;
+
+    if(tanque.Length >= 2){
+        tipoDeTanque = tanque;
+    }else{
+       Console.WriteLine ("Tanque invalido!!!");
+    }
+    
+  }
+
+  public int GetCodigo(){
+    return codigo;
+  }
+
+  public void SetCodigo(int c){
+    
+    int cod = c;
+
+    if(cod > 0){
+        codigo = cod;
+    }else{
+       Console.WriteLine ("codigo invalido!!!");
+    }
+    
+  }
+
+  public string GetModelo(){
+    return modelo;
+  }
+
+  public void SetModelo(string m){
+
+    string md = m;
+
+    if(md.Length >= 2){
+
+        modelo = md;
+
+    }else{
+
+       Console.WriteLine ("modelo invalido!!!");
+    }
+   
+  }
+}
+
+//...............................................................Classe Pedido
+class Pedido:Cliente{
+
+}
+
+//...............................................................Classe Troca
+class Troca:Pedido{
+
+  private DateTime dataTroca;
+  private string motivo;
+  private double diferencaValor;
+
+  public DateTime GetDataTroca(){
+    return dataTroca;
+  }
+
+  public void SetDataTroca(string ano,string dia,string mes){
+
+      if(VerificaData(ano,4)){//...................................funcao statica de Pessoa
+
+        if(VerificaData(dia,2)){
+
+            if(VerificaData(mes,2)){
+
+                dataTroca = new DateTime(Convert.ToInt32(ano),Convert.ToInt32(mes),Convert.ToInt32(dia));
+            }else{
+                    Console.WriteLine ("data invalida!!!");
+                  }
+      
+        }else{
+                Console.WriteLine ("data invalida!!!");
+              }
+      
+    }else{
+            Console.WriteLine ("data invalida!!!");
+          }
+  }
+
+  public string GetMotivo(){
+    return motivo;
+  }
+
+  public void SetMotivo(string m){
+
+    string motivacao = m;
+
+   if(motivacao.Length > 0){
+
+     motivo = motivacao;
+
+   }else{
+     Console.WriteLine ("motivo invalido!!!");
+   }
+  }
+
+  public double GetDiferenca(){
+    return diferencaValor;
+  }
+
+  public void SetDiferenca(double d){
+
+    double d2 = d;
+
+    if(d2 > 0){
+
+      diferencaValor = d2;
+
+    }else{
+
+      Console.WriteLine ("diferenca de valor invalida!!!");
+      
+    }
+  }
 }
 
 class MainClass {
@@ -395,17 +729,22 @@ class MainClass {
     
     Console.WriteLine ("Tudo ok continue!!!");
    
-   // Pessoa.VerificarCpf(Console.ReadLine());//teste cpf
-  // if(Pessoa.VerificaTelefone(Console.ReadLine())){  Console.WriteLine ("Hello World");}
-  // if(Pessoa.VerificaPalavra(Console.ReadLine())){  Console.WriteLine ("OK!!!");}
+ // Pessoa.VerificarCpf(Console.ReadLine());//teste cpf
+ // if(Pessoa.VerificaTelefone(Console.ReadLine())){  Console.WriteLine ("Hello World");}
+ // if(Pessoa.VerificaPalavra(Console.ReadLine())){  Console.WriteLine ("OK!!!");}
  // Pessoa p = new Pessoa();  
  // p.SetDataNascimento(Console.ReadLine(),Console.ReadLine(),Console.ReadLine());
  // Console.WriteLine (p.GetDataNascimento()+"OK!!!");
  //Funcionario f = new Funcionario(); 
  //f.SetHorarioEntrada(Console.ReadLine(),Console.ReadLine());
  //f.SetHorarioSaida(Console.ReadLine(),Console.ReadLine());
+  //Veiculo v = new Veiculo();
+  //v.SetDataFabricacao(Console.ReadLine(),Console.ReadLine(),Console.ReadLine());
+  //Console.WriteLine (v.GetDataFabricacao()+"OK!!!");
 
-
+ //Veiculo v = new Veiculo();
+ //v.SetPlaca(Console.ReadLine());
+ // Console.WriteLine (v.GetPlaca()+"OK!!!");
  }
 
 }
