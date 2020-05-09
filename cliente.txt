@@ -1,1 +1,2 @@
-fulano_de_tal 11111111111 2008,3,1,7,0,0 995046820 fulanoX 12ab 1 12000.00
+﻿eltrano-ribas-mar 12047336783 1986 12 4 995046820 beltranoX abcd 0 0
+ciclano-da-silva-cruz 11111111111 2008 03 01 995046820 ciclanoX 12ab 1 12000.00
