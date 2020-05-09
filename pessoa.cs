@@ -25,7 +25,7 @@ class Pessoa{
    if(valor.Length > 4){//login maior que 4 digitos
      login = l;
     }else{
-       Console.WriteLine ("Login invalido,quantidade de caracteres menor que  4 !!!");
+       Console.WriteLine ("Login invalido,quantidade de caracteres menor que  5 !!!");
     }
  
  }
@@ -117,7 +117,7 @@ public static bool VerificaData(string data,int tam){
 
   string valor = data;
 
-    if( valor.Length == tam && valor.All(char.IsDigit)){//verifica se tem so numero
+    if(valor.Length == tam && valor.All(char.IsDigit)){//verifica se tem so numero
 
       return true;
 
@@ -132,8 +132,16 @@ public static bool VerificaPalavra(string letra){
 
   string valor = letra;
 
-    if( valor.Length != 0 && valor.All(char.IsLetter)){//verifica se tem so letra
-
+    if( valor.Length != 0){//verifica se tem so letra
+      
+    
+      for(int i = 0;i < valor.Length; i++)
+      {
+       if(!(char.IsLetter(valor[i])||valor[i]==' ')){
+          return false;
+       }
+      
+      }
       return true;
 
     }else{
@@ -191,7 +199,7 @@ public static bool VerificarCpf(string cpFentrada) {
        soma += digto1[i2];
       }
 
-      Console.WriteLine ("A soma do primeiro digito deu "+soma);
+     // Console.WriteLine ("A soma do primeiro digito deu "+soma);
       digVerif1 = (soma -((soma/11)*11));
 
       if(digVerif1 >= 2){
@@ -203,7 +211,7 @@ public static bool VerificarCpf(string cpFentrada) {
      if(cpf[9] == digVerif1)
      {
 
-        Console.WriteLine ("O primeiro digito verificador é "+digVerif1+" confere!");
+        //Console.WriteLine ("O primeiro digito verificador é "+digVerif1+" confere!");
 
         ind = 11;
         soma = 0;
@@ -214,7 +222,7 @@ public static bool VerificarCpf(string cpFentrada) {
         soma += digto1[i3];
         }
 
-        Console.WriteLine ("\nA soma do segundo digito deu "+soma);
+       // Console.WriteLine ("\nA soma do segundo digito deu "+soma);
         digVerif1 = (soma -((soma/11)*11));
 
         if(digVerif1 >= 2){
@@ -225,12 +233,12 @@ public static bool VerificarCpf(string cpFentrada) {
 
        if(cpf[10] == digVerif1)
         {
-         Console.WriteLine ("O segundo digito verificador é "+digVerif1+" esta correto!");
+         //Console.WriteLine ("O segundo digito verificador é "+digVerif1+" esta correto!");
          return true;
 
         }else{
-          Console.WriteLine ("O segundo digito verificador é "+cpf[10]+" esta incorreto!");
-          Console.WriteLine ("deveria ser "+digVerif1);
+         // Console.WriteLine ("O segundo digito verificador é "+cpf[10]+" esta incorreto!");
+         // Console.WriteLine ("deveria ser "+digVerif1);
           return false;
         }
 
