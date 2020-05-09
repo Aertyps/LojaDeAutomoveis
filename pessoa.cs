@@ -25,7 +25,7 @@ class Pessoa{
    if(valor.Length > 4){//login maior que 4 digitos
      login = l;
     }else{
-       Console.WriteLine ("Login invalido,quantidade de caracteres menor que  4 !!!");
+       Console.WriteLine ("Login invalido,quantidade de caracteres menor que  5 !!!");
     }
  
  }
@@ -117,7 +117,7 @@ public static bool VerificaData(string data,int tam){
 
   string valor = data;
 
-    if( valor.Length == tam && valor.All(char.IsDigit)){//verifica se tem so numero
+    if(valor.Length == tam && valor.All(char.IsDigit)){//verifica se tem so numero
 
       return true;
 

@@ -137,7 +137,8 @@ class Arquivo{
     string palavras ="";
     string ano ="";
     string dia ="";
-
+    string mes ="";
+    
     while(!sr.EndOfStream){
 
       coluna1++;
@@ -215,20 +216,40 @@ class Arquivo{
   }
 
  public static void Escrita(string arquivo,Cliente c){//arquivo = "dados.txt"
-   
+    
     Cliente cliente = new Cliente();
+    string str ="";
+    string mes ="";
+    string dia ="";
     cliente = c;
     string ano = ""+cliente.GetDataNascimento().Year;
-    string dia = ""+cliente.GetDataNascimento().Day;
-    string mes = ""+cliente.GetDataNascimento().Month;
-    
+
+    if(cliente.GetDataNascimento().Day < 10){//corrigir um erro na escrita
+
+       dia = "0"+cliente.GetDataNascimento().Day;
+
+    }else{
+
+       dia = ""+cliente.GetDataNascimento().Day;
+    }
+
+    if(cliente.GetDataNascimento().Month < 10){//corrigir um erro na escrita
+
+       mes = "0"+cliente.GetDataNascimento().Month;
+
+    }else{
+      
+       mes = ""+cliente.GetDataNascimento().Month;
+    }
+
     string nom = cliente.GetNome();
     string nom2 = "";
 
+    str = ConteudoDeArquivo(arquivo);//pego os dados do cliente.txt
+
     for(int i = 0;i < nom.Length ; i++)//reorganizando nome
       { 
-        if(i != 0){
-          
+
           if(nom[i] == ' '){
 
             nom2 +='-';
@@ -238,18 +259,28 @@ class Arquivo{
             nom2 +=nom[i];
 
           }
-        }
+        
       }
 
     FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Write);
 
     StreamWriter sw = new StreamWriter(meuArq, Encoding.UTF8);
    
-    string str = ""+nom2+" "+cliente.GetCpf()+" "+ano+" "+dia+" "+mes+" "+cliente.GetTelefone()+" "+cliente.GetLogin()+" "+cliente.GetSenha()+" "+0+" "+0.0;
+    str += ""+nom2+" "+cliente.GetCpf()+" "+ano+" "+dia+" "+mes+" "+cliente.GetTelefone()+" "+cliente.GetLogin()+" "+cliente.GetSenha()+" "+0+" "+1;
+   
+
     sw.WriteLine(str);
     
     sw.Close();
     meuArq.Close();
  }
+
+public static string ConteudoDeArquivo(string arquivo)
+  {
+      StreamReader streamReader = new StreamReader(arquivo);
+      string text = streamReader.ReadToEnd();
+      streamReader.Close();
+      return text;
+  }
 
 }
