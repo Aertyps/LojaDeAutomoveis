@@ -10,10 +10,10 @@ class Moto:Veiculo{
   private string modelo;
   private int codigo;
 
-  public Moto(string t,string a,string d,string ma,string p,double v,string c,string m,string mt,string cb,int cd,string tq, string md){
+  public Moto(string t,string a,string p,double v,string c,string ma,string mt,string cb,int cd,string tq, string md){
 
     SetTipo(t);
-    SetDataFabricacao(a,d,m);//ano dia mes
+    SetDataFabricacao(a);//ano 
     SetPlaca(p);
     SetValor(v);
     SetCor(c);

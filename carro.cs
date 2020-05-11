@@ -10,10 +10,10 @@ class Carro:Veiculo{
   private bool carroceria;
   private int codigo;
   
-  public Carro(string t,string a,string d,string ma,string p,double v,string c,string m,string mt,string cb,int qtd,bool crr,int cd){
+  public Carro(string t,string a,string p,double v,string c,string ma,string mt,string cb,int qtd,bool crr,int cd){
 
     SetTipo(t);
-    SetDataFabricacao(a,d,m);//ano dia mes
+    SetDataFabricacao(a);//ano dia mes
     SetPlaca(p);
     SetValor(v);
     SetCor(c);
