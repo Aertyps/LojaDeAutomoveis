@@ -9,13 +9,9 @@ class Funcionario:Pessoa{
   private DateTime horarioEntrada;
   private DateTime horarioSaida;
 
-  public Funcionario(string n,string c,string a,string d,string m,string t,string l,string s,string dp,string a2,string d2,string m2, string h1,string s1, string h2,string s2){
-    SetNome(n);
-    SetCpf(c);
-    SetDataNascimento(a,d,m);
-    SetTelefone(t);
-    SetLogin(l);
-    SetSenha(s);
+  public Funcionario(Pessoa p,string dp,string a2,string d2,string m2, string h1,string s1, string h2,string s2){
+    Pessoa pessoa = new Pessoa();
+    pessoa = p;
     SetDepartamento(dp);
     SetDataAdmissao(a2,d2,m2);
     SetHorarioEntrada(h1,s1);
