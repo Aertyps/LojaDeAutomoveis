@@ -52,24 +52,13 @@ class Veiculo{
       }
   }
 
-  public void SetDataFabricacao(string ano,string dia,string mes){
+  public void SetDataFabricacao(string ano){
 
-      if(Pessoa.VerificaData(ano,4)){//...................................funcao statica de Pessoa
+    if(Pessoa.VerificaData(ano,4)){//...................................funcao statica de Pessoa
 
-        if(Pessoa.VerificaData(dia,2)){
+        dataFabricacao = new DateTime(Convert.ToInt32(ano),10,10);
 
-            if(Pessoa.VerificaData(mes,2)){
-
-                dataFabricacao = new DateTime(Convert.ToInt32(ano),Convert.ToInt32(mes),Convert.ToInt32(dia));
-            }else{
-                    Console.WriteLine ("data invalida!!!");
-                  }
-      
         }else{
-                Console.WriteLine ("data invalida!!!");
-              }
-      
-    }else{
             Console.WriteLine ("data invalida!!!");
           }
   }

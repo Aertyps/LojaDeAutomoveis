@@ -283,4 +283,112 @@ public static string ConteudoDeArquivo(string arquivo)
       return text;
   }
 
+  public static string VeiculoAVenda(string arquivo,int tipo2){//arquivo-->dados.txt
+   
+    int tipo = tipo2; 
+    FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Read);
+    StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
+    int espaco = 0;
+    string  veiculos = "";
+
+    if(tipo == 0){
+
+      veiculos ="(1) Nome  \n(2) Tipo  \n(3) Ano de Fabricacao \n(4) Placa \n(5) Cor \n(6) Marca \n(7) Motor \n(8) Combustivel\n(9) Portas \n(10)Carroceria \n(11)Valor \n(12)Codigo\n\n";
+
+    }else if(tipo == 1){
+
+      veiculos ="(1) Nome  \n(2) Tipo  \n(3) Ano de Fabricacao \n(4) Placa \n(5) Cor \n(6) Marca \n(7) Motor \n(8) Combustivel\n(9)  Valor \n(10) Codigo\n\n";
+    }
+    
+    veiculos+="\n..................................................................................................................\n";
+    
+    while(!sr.EndOfStream){
+      string str = sr.ReadLine();
+      string palavras ="";
+      espaco = 0;
+
+      for(int i2 = 0;i2<str.Length; i2++)
+      {
+
+        if(str[i2] ==' '){
+
+          espaco++;
+          veiculos +="("+espaco+")"+palavras+"  ";
+          palavras="";
+
+       }else{
+         palavras+=str[i2];
+       }  
+
+      }
+      veiculos +="("+(espaco + 1)+")"+palavras+"  ";
+      veiculos+="\n..................................................................................................................\n";
+    }      
+    sr.Close();
+    meuArq.Close();
+    
+    return veiculos;
+  }
+
+  public static int[] ItensColuna(string arquivo,int c){//arquivo-->dados.txt
+   
+    int coluna = c; 
+    int[] vetor = new int[NumeroLinhas(arquivo)];
+    FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Read);
+    StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
+    int espaco = 0;
+    string  veiculos = "";
+    int i = 0;
+
+    while(!sr.EndOfStream){
+      string str = sr.ReadLine();
+      string palavras ="";
+      espaco = 0;
+
+      for(int i2 = 0;i2<str.Length; i2++)
+      {
+
+        if(str[i2] ==' '){
+          espaco++;
+          if(coluna == espaco){
+             vetor[i] = Convert.ToInt32(palavras);
+          }
+          palavras="";
+
+       }else{
+         palavras+=str[i2];
+       }  
+
+      }
+      espaco++;
+      if(coluna == espaco){
+             vetor[i] = Convert.ToInt32(palavras);
+          }
+      i++;
+     
+    }      
+    sr.Close();
+    meuArq.Close();
+    
+    return vetor;
+  }
+
+  public static int NumeroLinhas(string arquivo){//arquivo-->dados.txt
+   
+    FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Read);
+    StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
+    int linhas = 0;
+   
+    
+    while(!sr.EndOfStream){
+      string str = sr.ReadLine();
+      linhas++;
+    }
+
+    sr.Close();
+    meuArq.Close();
+    
+    return linhas;
+  }
+
 }
