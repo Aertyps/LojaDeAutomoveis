@@ -3,14 +3,17 @@ using System.Linq;
 using System.IO;
 using System.Text;
 
-class Pedido:Pagamento
+class Pagamento: Pedido
 {
-  public Pedido(string numped, string ano, string dia, string mes, string qnt, double valunit)
+  public Pagamento(int numped, string ano, string dia, string mes, int qnt)
   {
     SetNumeroPedido(numped);
     SetDataPedido(ano,dia,mes);
-    SetQnt(qnt);
-    SetValUnit(valunit);
+    SetQtd(qnt);
+  }
+
+  public Pagamento(){
+    
   }
 
   private DateTime dataPagamento;
@@ -33,7 +36,7 @@ class Pedido:Pagamento
       {
         if(Pessoa.VerificaData(mes,2))
         {
-          dataFabricacao = new DateTime(Convert.ToInt32(ano),Convert.ToInt32(mes),Convert.ToInt32(dia));
+          dataPagamento = new DateTime(Convert.ToInt32(ano),Convert.ToInt32(mes),Convert.ToInt32(dia));
         }
         else
         {
