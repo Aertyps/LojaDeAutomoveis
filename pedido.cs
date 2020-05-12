@@ -6,4 +6,84 @@ using System.Text;
 //...............................................................Classe Pedido
 class Pedido:Cliente{
 
+  private DateTime dataPedido;
+  private int numeroPedido;
+  private int qtd;
+//-veicullo: Carro/Moto
+  public Pedido(){
+
+  }
+
+  public Pedido(string a,string d,string m,int numero,int qtd,Carro c){
+    SetDataPedido( a, d, m);
+    SetNumeroPedido(numero);
+    SetQtd(qtd);
+    Carro carro = new Carro();
+    carro = c;
+  }
+
+   public Pedido(string a,string d,string m,int numero,int qtd,Moto moto){
+    SetDataPedido( a, d, m);
+    SetNumeroPedido(numero);
+    SetQtd(qtd);
+    Moto moto1 = new Moto();
+    moto1 = moto;
+  }
+
+  public DateTime GetDataPedido(){
+    return dataPedido;
+  }
+
+  public int GetNumeroPedido(){
+    return numeroPedido;
+  }
+
+  public int GetQtd(){
+    return qtd;
+  }
+
+  public void SetDataPedido(string ano,string dia,string mes){
+
+      if(VerificaData(ano,4)){//...................................funcao statica de Pessoa
+
+        if(VerificaData(dia,2)){
+
+            if(VerificaData(mes,2)){
+
+                dataPedido = new DateTime(Convert.ToInt32(ano),Convert.ToInt32(mes),Convert.ToInt32(dia));
+            }else{
+                    Console.WriteLine ("data invalida!!!");
+                  }
+      
+        }else{
+                Console.WriteLine ("data invalida!!!");
+              }
+      
+    }else{
+            Console.WriteLine ("data invalida!!!");
+          }
+  }
+
+  public void SetQtd(int q){
+
+    if(q > 0){
+
+      qtd = q;
+
+    }else{
+      Console.WriteLine ("quantidade invalida!!!");
+    }
+  }
+
+   public void SetNumeroPedido(int p){
+
+    if(p > 0){
+
+      numeroPedido = p;
+
+    }else{
+      Console.WriteLine ("quantidade invalida!!!");
+    }
+  }
+  
 }
