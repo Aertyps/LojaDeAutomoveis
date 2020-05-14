@@ -14,6 +14,7 @@ class Veiculo{
   private string marca;
   private string motor;
   private string combustivel;
+  private string nome;
 
   public Veiculo(){
 
@@ -33,6 +34,23 @@ class Veiculo{
       tipo = entrada;
     }else{
        Console.WriteLine ("tipo invalido!!!");
+    }
+  }
+
+   public string GetNome(){
+  
+    return nome;
+  }
+
+  public void SetNome(string n){
+
+    string entrada = n;
+
+    if(entrada.Length > 2)//maior que 2 digitos
+    {
+      nome = entrada;
+    }else{
+       Console.WriteLine ("nome invalido!!!");
     }
   }
 
@@ -123,7 +141,7 @@ class Veiculo{
 
     string entrada = m;
 
-    if(entrada.Length > 2)//maior que 2 digitos
+    if(entrada.Length > 1)//maior que 2 digitos
     {
       motor = entrada;
     }else{

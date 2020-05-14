@@ -14,6 +14,13 @@ class Cliente:Pessoa{
     pessoa = p;
     SetComprasRealizadas(n2);//
     SetValorTotalCompras(v);//manda o valor atual p somar com o antigo
+    SetNome(pessoa.GetNome());
+    SetCpf(pessoa.GetCpf());
+    SetDataNascimento(pessoa.GetDataNascimento());
+    SetTelefone(""+pessoa.GetTelefone());
+    SetLogin(pessoa.GetLogin());
+    SetSenha(pessoa.GetSenha());
+    SetAcesso(""+pessoa.GetAcesso());
     
   }
 
