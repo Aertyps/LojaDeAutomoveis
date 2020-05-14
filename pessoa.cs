@@ -11,6 +11,7 @@ class Pessoa{
  private int telefone;
  private string login;
  private string senha;
+ private int acesso;
 
  public Pessoa(){//parametros a definir
 
@@ -26,6 +27,20 @@ class Pessoa{
      login = l;
     }else{
        Console.WriteLine ("Login invalido,quantidade de caracteres menor que  5 !!!");
+    }
+ 
+ }
+
+ public int GetAcesso(){
+   return acesso;
+ }
+
+ public void SetAcesso(string a){
+   string valor = a;
+   if(valor.All(char.IsDigit)){//se é numero
+     acesso = Convert.ToInt32(valor);
+    }else{
+       Console.WriteLine (" acesso invalido!!!");
     }
  
  }
@@ -100,6 +115,13 @@ public string GetSenha(){
      Console.WriteLine ("data invalida!!!");
   }
    
+ }
+
+ public void SetDataNascimento(DateTime data){//vem do txt
+   if(data != null){
+     dataNascimento = data;
+   }
+  
  }
 
 public int GetTelefone(){

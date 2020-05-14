@@ -84,10 +84,10 @@ class Arquivo{
     return cliente;
   }
 
-  public static int BuscarCliente(string arquivo,string l){//faz a busca
+  public static int BuscarPessoa(string arquivo,string l){//faz a busca
+  
     string login = l;
-    //Cliente cliente = new Cliente();
-
+  
     FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Read);
     StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
 
@@ -124,11 +124,11 @@ class Arquivo{
   }
   
 
-   public static Cliente BuscarCliente(string arquivo,Cliente c,int col){//arquivo-->dados.txt
+public static Pessoa BuscarPessoa(string arquivo,Pessoa p,int col){//arquivo-->dados.txt
    
     string arq = arquivo;
-    Cliente cliente = new Cliente();
-    FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Read);
+    Pessoa pessoa = new Pessoa();
+    FileStream meuArq = new FileStream(arq, FileMode.Open, FileAccess.Read);
     StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
 
     int i = 0;
@@ -137,7 +137,95 @@ class Arquivo{
     string palavras ="";
     string ano ="";
     string dia ="";
-    string mes ="";
+    //string mes ="";
+    
+    while(!sr.EndOfStream){
+
+      coluna1++;
+      string str = sr.ReadLine();
+
+      if(coluna == coluna1){
+
+        for(int i2 = 0;i2<str.Length; i2++)
+        {
+        
+            if(str[i2] ==' '){
+              i++;
+
+            if(i == 1){
+              pessoa.SetNome(palavras);
+
+            }else if(i == 2){
+
+              pessoa.SetCpf(palavras);
+
+            }else if(i == 3){
+
+              ano = palavras;
+
+            }else if(i == 4){
+              
+              dia = palavras;
+
+            }else if(i == 5){
+
+              pessoa.SetDataNascimento(ano,dia,palavras);
+
+            }else if(i == 6){
+
+              pessoa.SetTelefone(palavras);
+
+            }else if(i == 7){
+
+              pessoa.SetLogin(palavras);
+
+            }else if(i == 8){
+
+              pessoa.SetSenha(palavras);
+
+            }
+
+            palavras = "";
+
+        }else{
+
+            if(str[i2] =='-'){
+
+              palavras +=' ';
+
+            }else{
+
+              palavras +=str[i2];
+            }
+          
+        }
+        
+        }
+        //ultimo dado
+        pessoa.SetAcesso(palavras);
+      }
+    
+    }
+    sr.Close();
+    meuArq.Close();
+
+    return pessoa;
+  }
+
+   public static Cliente BuscarCliente(string arquivo,Cliente c,int col){//arquivo-->dados.txt
+   
+    string arq = arquivo;
+    Cliente cliente = new Cliente();
+    FileStream meuArq = new FileStream(arq, FileMode.Open, FileAccess.Read);
+    StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
+
+    int i = 0;
+    int coluna1 = 0;
+    int coluna = col;
+    string palavras ="";
+    string ano ="";
+    string dia ="";
+    //string mes ="";
     
     while(!sr.EndOfStream){
 
@@ -215,39 +303,39 @@ class Arquivo{
     return cliente;
   }
 
- public static void Escrita(string arquivo,Cliente c){//arquivo = "dados.txt"
+ public static void Cadastro(string arquivo,Pessoa p){//arquivo = "dados.txt"
     
-    Cliente cliente = new Cliente();
+    Pessoa pessoa = new Pessoa();
     string str ="";
     string mes ="";
     string dia ="";
-    cliente = c;
-    string ano = ""+cliente.GetDataNascimento().Year;
+    pessoa = p;
+    string ano = ""+pessoa.GetDataNascimento().Year;
 
-    if(cliente.GetDataNascimento().Day < 10){//corrigir um erro na escrita
+    if(pessoa.GetDataNascimento().Day < 10){//corrigir um erro na escrita
 
-       dia = "0"+cliente.GetDataNascimento().Day;
+       dia = "0"+pessoa.GetDataNascimento().Day;
 
     }else{
 
-       dia = ""+cliente.GetDataNascimento().Day;
+       dia = ""+pessoa.GetDataNascimento().Day;
     }
 
-    if(cliente.GetDataNascimento().Month < 10){//corrigir um erro na escrita
+    if(pessoa.GetDataNascimento().Month < 10){//corrigir um erro na escrita
 
-       mes = "0"+cliente.GetDataNascimento().Month;
+       mes = "0"+pessoa.GetDataNascimento().Month;
 
     }else{
       
-       mes = ""+cliente.GetDataNascimento().Month;
+       mes = ""+pessoa.GetDataNascimento().Month;
     }
 
-    string nom = cliente.GetNome();
+    string nom = pessoa.GetNome();
     string nom2 = "";
 
-    str = ConteudoDeArquivo(arquivo);//pego os dados do cliente.txt
+    str = ConteudoDeArquivo(arquivo);//pego os dados do pessoa.txt,para nao apaga os dados existentes
 
-    for(int i = 0;i < nom.Length ; i++)//reorganizando nome
+    for(int i = 0;i < nom.Length ; i++)//reorganizando nome,coloco traço no lugar dos espacos pra facilitar leitura
       { 
 
           if(nom[i] == ' '){
@@ -266,7 +354,7 @@ class Arquivo{
 
     StreamWriter sw = new StreamWriter(meuArq, Encoding.UTF8);
    
-    str += ""+nom2+" "+cliente.GetCpf()+" "+ano+" "+dia+" "+mes+" "+cliente.GetTelefone()+" "+cliente.GetLogin()+" "+cliente.GetSenha()+" "+0+" "+1;
+    str += ""+nom2+" "+pessoa.GetCpf()+" "+ano+" "+dia+" "+mes+" "+pessoa.GetTelefone()+" "+pessoa.GetLogin()+" "+pessoa.GetSenha()+" "+0;
    
 
     sw.WriteLine(str);
@@ -337,7 +425,7 @@ public static string ConteudoDeArquivo(string arquivo)
     FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Read);
     StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
     int espaco = 0;
-    string  veiculos = "";
+   // string  veiculos = "";
     int i = 0;
 
     while(!sr.EndOfStream){
@@ -379,7 +467,6 @@ public static string ConteudoDeArquivo(string arquivo)
     StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
     int linhas = 0;
    
-    
     while(!sr.EndOfStream){
       string str = sr.ReadLine();
       linhas++;
@@ -390,5 +477,92 @@ public static string ConteudoDeArquivo(string arquivo)
     
     return linhas;
   }
+
+  public static string ListarPedidos(){
+    
+    FileStream meuArq = new FileStream("pedidos.txt", FileMode.Open, FileAccess.Read);
+    StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
+    int espaco = 0;
+    string  pedido = "";
+
+    pedido ="(1) Numero do Pedido  \n(2) Cpf  \n(3) Quantidade \n(4) Data  \n(5) Codigo do veiculo \n(6) Valor Total";
+    
+    
+    pedido+="\n..................................................................................................................\n";
+    
+    while(!sr.EndOfStream){
+      string str = sr.ReadLine();
+      string palavras ="";
+      espaco = 0;
+
+      for(int i2 = 0;i2<str.Length; i2++)
+      {
+
+        if(str[i2] ==' '){
+
+          espaco++;
+          pedido +="("+espaco+")"+palavras+"  ";
+          palavras="";
+
+       }else{
+         palavras+=str[i2];
+       }  
+
+      }
+      pedido +="("+(espaco + 1)+")"+palavras+"  ";
+      pedido+="\n..................................................................................................................\n";
+    }      
+    sr.Close();
+    meuArq.Close();
+    
+    return pedido;
+  }
+
+  public static void CadastrarVeiculo(string arquivo,Carro c){//cadastro de veiculo
+    
+    Carro carro = new Carro();
+    string str ="";
+    carro = c;
+    string ano = ""+carro.GetDataFabricacao().Year;
+    int carroceria = Convert.ToInt32(carro.GetCarroceria());
+
+    str = ConteudoDeArquivo(arquivo);//pego os dados do carro.txt,para nao apaga os dados existentes
+
+    FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Write);
+
+    StreamWriter sw = new StreamWriter(meuArq, Encoding.UTF8);
+   
+    str += ""+carro.GetNome()+" "+carro.GetTipo()+" "+ano+" "+carro.GetPlaca()+" "+carro.GetCor()+" "+carro.GetMarca()+" "+carro.GetMotor()+" "+carro.GetCombustivel()+" "+carro.GetQtdPortas()+" "+carroceria+" "+carro.GetValor()+" "+carro.GetCodigo();
+   
+
+    sw.WriteLine(str);
+    
+    sw.Close();
+    meuArq.Close();
+ }
+
+  public static void CadastrarMoto(string arquivo,Moto c){//cadastro moto
+    
+    Moto moto = new Moto();
+    string str ="";
+    moto = c;
+    string ano = ""+moto.GetDataFabricacao().Year;
+    
+
+    str = ConteudoDeArquivo(arquivo);//pego os dados do moto.txt,para nao apaga os dados existentes
+
+    FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Write);
+
+    StreamWriter sw = new StreamWriter(meuArq, Encoding.UTF8);
+   
+    str += ""+moto.GetNome()+" "+moto.GetTipo()+" "+ano+" "+moto.GetPlaca()+" "+moto.GetCor()+" "+moto.GetMarca()+" "+moto.GetMotor()+" "+moto.GetCombustivel()+" "+moto.GetValor()+" "+moto.GetCodigo();
+   
+
+    sw.WriteLine(str);
+    
+    sw.Close();
+    meuArq.Close();
+ }
+
 
 }
