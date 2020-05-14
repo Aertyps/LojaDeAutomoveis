@@ -10,16 +10,10 @@ class Carro:Veiculo{
   private bool carroceria;
   private int codigo;
   
-  public Carro(string t,string a,string p,double v,string c,string ma,string mt,string cb,int qtd,bool crr,int cd){
+  public Carro(Veiculo v,int qtd,bool crr,int cd){
 
-    SetTipo(t);
-    SetDataFabricacao(a);//ano dia mes
-    SetPlaca(p);
-    SetValor(v);
-    SetCor(c);
-    SetMarca(ma);
-    SetMotor(mt);
-    SetCombustivel(cb);
+    Veiculo veiculo = new Veiculo();
+    veiculo = v;
     SetQtdPortas(qtd);
     SetCarroceria(crr);
     SetCodigo(cd);

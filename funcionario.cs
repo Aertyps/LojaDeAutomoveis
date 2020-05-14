@@ -8,22 +8,46 @@ class Funcionario:Pessoa{
   protected DateTime dataAdmissao;
   private DateTime horarioEntrada;
   private DateTime horarioSaida;
+  private int nivel;//nivel de acesso
 
-  public Funcionario(string n,string c,string a,string d,string m,string t,string l,string s,string dp,string a2,string d2,string m2, string h1,string s1, string h2,string s2){
-    SetNome(n);
-    SetCpf(c);
-    SetDataNascimento(a,d,m);
-    SetTelefone(t);
-    SetLogin(l);
-    SetSenha(s);
+  public Funcionario(Pessoa p,string dp,string a2,string d2,string m2, string h1,string s1, string h2,string s2){
+    Pessoa pessoa = new Pessoa();
+    pessoa = p;
     SetDepartamento(dp);
     SetDataAdmissao(a2,d2,m2);
     SetHorarioEntrada(h1,s1);
     SetHorarioSaida(h2,s2);
   }
 
+  public Funcionario(Pessoa p){
+    Pessoa pessoa = new Pessoa();
+    pessoa = p;
+    SetNome(pessoa.GetNome());
+    SetCpf(pessoa.GetCpf());
+    SetDataNascimento(pessoa.GetDataNascimento());
+    SetTelefone(""+pessoa.GetTelefone());
+    SetLogin(pessoa.GetLogin());
+    SetSenha(pessoa.GetSenha());
+    SetAcesso(""+pessoa.GetAcesso());
+    SetNivel("0");//por enquanto
+  }
+
   public Funcionario(){
 
+  }
+
+  public int GetNivel(){
+   return nivel;
+ }
+
+ public void SetNivel(string a){//nivel de acesso
+   string valor = a;
+   if(valor.All(char.IsDigit)){//se é numero
+     nivel = Convert.ToInt32(valor);
+    }else{
+       Console.WriteLine (" nivel invalido!!!");
+    }
+ 
   }
 
   public void SetDepartamento(string d){

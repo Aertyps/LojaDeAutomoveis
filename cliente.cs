@@ -9,15 +9,18 @@ class Cliente:Pessoa{
   private int comprasRealizadas;
   private double valorTotalCompras;
 
-   public Cliente(string n,string c,string a,string d,string m,string t,string l,string s,int n2,double v){
-    SetNome(n);
-    SetCpf(c);
-    SetDataNascimento(a,d,m);
-    SetTelefone(t);
-    SetLogin(l);
-    SetSenha(s);
+   public Cliente(Pessoa p,int n2,double v){
+    Pessoa pessoa = new Pessoa();
+    pessoa = p;
     SetComprasRealizadas(n2);//
     SetValorTotalCompras(v);//manda o valor atual p somar com o antigo
+    SetNome(pessoa.GetNome());
+    SetCpf(pessoa.GetCpf());
+    SetDataNascimento(pessoa.GetDataNascimento());
+    SetTelefone(""+pessoa.GetTelefone());
+    SetLogin(pessoa.GetLogin());
+    SetSenha(pessoa.GetSenha());
+    SetAcesso(""+pessoa.GetAcesso());
     
   }
 
