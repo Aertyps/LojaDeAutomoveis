@@ -14,7 +14,7 @@ class Pagamento: Pedido
 
   public Pagamento(){
     
-  }
+  
 
   private DateTime dataPagamento;
   private string notaFiscal;
@@ -69,5 +69,8 @@ class Pagamento: Pedido
     return valorTotal;
   }
 
-  //public void qnt*valunit 
+  public void SetValorTotal(double vtpedido)
+  {
+    double valorTotal = vtpedido;
+  }
 }
