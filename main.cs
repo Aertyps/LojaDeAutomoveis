@@ -258,8 +258,7 @@ public static void Cadastro(Pessoa p){
 
         }else if(num == 2){
 
-          Console.WriteLine ("\nDigite o numero de parcelas");
-          int parcelas = Convert.ToInt32(Console.ReadLine());
+          RegistrarCartao();
           Console.WriteLine ("\nVenda Finalizada");
           Console.WriteLine ("Obrigado pela preferencia!");
           op = false;
@@ -442,6 +441,22 @@ public static void Loja(Funcionario f){
    moto.SetCombustivel(Console.ReadLine());
   
    Arquivo.CadastrarMoto("motos.txt",moto);
+  }
+
+
+  public static void RegistrarCartao()
+  {
+    
+   Cartao  card= new Cartao();
+   Console.WriteLine ("\nInforme o tipo do carro, ex:visa, mastercard...");
+   card.SetTipoCartao(Console.ReadLine());
+   Console.WriteLine ("\nInforme o numero de parcelas");
+   card.SetParcelas(Convert.ToInt32(Console.ReadLine()));
+   Console.WriteLine ("\nInforme o numero do cartão");
+   card.SetNumCartao(Console.ReadLine());
+  
+   Arquivo.CadastrarCartao("cartao.txt",card);
+   
   }
 
 public static void Logo(){
