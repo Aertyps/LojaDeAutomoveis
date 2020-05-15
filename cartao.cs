@@ -9,9 +9,9 @@ class Cartao:Pagamento
   private int parcelas;
   private string numCartao;
 
-  public Cartao(Pagamento pgto string tpcartao, int parc, string ncart)
+  public Cartao(Pagamento pgto, string tpcartao, int parc, string ncart)
   {
-    Pagamento pgto = new Pagamento();
+    Pagamento pagamento = new Pagamento();
     pagamento = pgto;
     SetTipoCartao(tpcartao);
     SetParcelas(parc);
@@ -46,7 +46,7 @@ class Cartao:Pagamento
     }
     else
     {
-      Console.WriteLine("numero de parcelas inválidas!")
+      Console.WriteLine("numero de parcelas inválidas!");
     }
   }
 
@@ -58,13 +58,14 @@ class Cartao:Pagamento
   public void SetNumCartao(string numc)
   {
     string numero = numc;
-    if(numero>0 & numero.Length = 16)
+
+    if(Convert.ToInt32(numero)>0 && numero.Length == 16)
     {
       numCartao = numero;
     }
     else
     {
-      Console.WriteLine("numero de cartão inválido, obs.: 16 numeros")
+      Console.WriteLine("numero de cartão inválido, obs.: 16 numeros");
     }
   }
 

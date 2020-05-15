@@ -7,9 +7,9 @@ class Dinheiro:Pagamento
 {
   private double valorPagamento;
 
-  public Dinheiro(Pagamento pgto double vlrpgto)
+  public Dinheiro(Pagamento pgto, double vlrpgto)
   {
-    Pagamento pgto = new Pagamento();
+    Pagamento pagamento = new Pagamento();
     pagamento = pgto;
     SetValorPagamento(vlrpgto);
   }

@@ -564,7 +564,7 @@ public static string ConteudoDeArquivo(string arquivo)
     meuArq.Close();
  }
 
- public static void CadastrarCartao( string arquivo Cartao card)
+ public static void CadastrarCartao(string arquivo ,Cartao card)
  {
   Cartao cartao = new Cartao();
   string str = "";

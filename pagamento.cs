@@ -90,7 +90,7 @@ class Pagamento: Pedido
   
   public void SetDesconto()
   {
-    if(tipoPagamento == "cartao" | tipoPagamento = "cheque")
+    if(tipoPagamento == "cartao" || tipoPagamento == "cheque")
     {
       valorTotal = valorTotal;
     }
