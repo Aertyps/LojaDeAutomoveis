@@ -564,5 +564,42 @@ public static string ConteudoDeArquivo(string arquivo)
     meuArq.Close();
  }
 
+ public static void CadastrarCartao( string arquivo Cartao card)
+ {
+  Cartao cartao = new Cartao();
+  string str = "";
+  cartao = card;
+  string ano = ""+cartao.GetDataPagamento().Year;
+  string mes ="";
+  string dia ="";
+
+  if(cartao.GetDataPagamento().Day < 10)
+  {
+    dia = "0"+cartao.GetDataPagamento().Day;
+  }
+  else
+  {
+    dia = ""+cartao.GetDataPagamento().Day;
+  }
+  if(cartao.GetDataPagamento().Month < 10)
+   {
+    mes = "0"+cartao.GetDataPagamento().Month;
+
+   }
+  else
+  {  
+    mes = ""+cartao.GetDataPagamento().Month;
+  }
+
+  str = ConteudoDeArquivo(arquivo);
+  FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Write);
+  StreamWriter sw = new StreamWriter(meuArq, Encoding.UTF8);
+
+  str+= "NF:"+cartao.GetNotaFiscal()+" ValorTotal:R$"+cartao.GetValorTotal()+"Cartao:"+cartao.GetTipoCartao()+" - Parcelas:"+cartao.GetParcelas()+" - Número do cartão:"+cartao.GetNumCartao();
+
+  sw.WriteLine(str);  
+  sw.Close();
+  meuArq.Close();
+ }
 
 }
