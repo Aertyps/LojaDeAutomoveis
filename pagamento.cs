@@ -20,7 +20,7 @@ class Pagamento: Pedido
   private string notaFiscal;
   private string tipoPagamento;
   private double valorTotal;
-  //desconto? add desconto no pedido e subtrair do valor total
+  private double desconto;
 
   public DateTime GetDataPagamento()
   {
@@ -69,5 +69,34 @@ class Pagamento: Pedido
     return valorTotal;
   }
 
-  //public void qnt*valunit 
+  public void SetValorTotal(double vtpedido)
+  {
+    double valorTotal = vtpedido;
+  }
+
+  public string GetTipoPagamento()
+  {
+    return tipoPagamento;
+  }
+
+  public void SetTipoPagamento()
+  {
+    //adicionar metodo de tipo de pagamento
+  }
+  public double GetDesconto()
+  {
+    return desconto;
+  }
+  
+  public void SetDesconto()
+  {
+    if(tipoPagamento == "cartao" || tipoPagamento == "cheque")
+    {
+      valorTotal = valorTotal;
+    }
+    if(tipoPagamento =="dinheiro")
+    {
+      valorTotal = valorTotal*0.8;
+    } 
+  }
 }
