@@ -8,9 +8,9 @@ class Cheque:Pagamento
   private DateTime dataVencimento;
   private double limiteCompra;
 
-  public Cheque(Pagamento pgto string ano, string dia, string mes, double lmtcompra)
+  public Cheque(Pagamento pgto, string ano, string dia, string mes, double lmtcompra)
   {
-    Pagamento pgto = new Pagamento();
+    Pagamento pagamento = new Pagamento();
     pagamento = pgto;
     SetDataVencimento(ano,dia,mes);
     SetLimiteCompra(lmtcompra);
