@@ -5,6 +5,12 @@ using System.Text;
 
 class Pagamento: Pedido
 {
+  private DateTime dataPagamento;
+  private string notaFiscal;
+  private string tipoPagamento;
+  private double valorTotal;
+  private double desconto;
+  
   public Pagamento(int numped, string ano, string dia, string mes, int qnt)
   {
     SetNumeroPedido(numped);
@@ -15,12 +21,6 @@ class Pagamento: Pedido
   public Pagamento(){
     
   }
-
-  private DateTime dataPagamento;
-  private string notaFiscal;
-  private string tipoPagamento;
-  private double valorTotal;
-  private double desconto;
 
   public DateTime GetDataPagamento()
   {

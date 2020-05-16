@@ -10,10 +10,10 @@ class Carro:Veiculo{
   private bool carroceria;
   private int codigo;
   
-  public Carro(Veiculo v,int qtd,bool crr,int cd){
+  public Carro(int qtd,bool crr,int cd){
 
-    Veiculo veiculo = new Veiculo();
-    veiculo = v;
+    //Veiculo veiculo = new Veiculo();
+    //veiculo = v;
     SetQtdPortas(qtd);
     SetCarroceria(crr);
     SetCodigo(cd);

@@ -78,7 +78,8 @@ class MainClass {
  }
 
 public static void Venda(Cliente c){
-
+  
+  int novoPedido = Arquivo.NovoNumeroPedido();
   Cliente cliente = new Cliente();
   cliente = c;
   bool op = true;
@@ -86,7 +87,7 @@ public static void Venda(Cliente c){
 
  Console.Clear();
  Console.WriteLine ("\nBem Vindo de Volta "+cliente.GetNome());
-
+ //Console.WriteLine ("         "+novoPedido);
   while(op){
       Console.WriteLine ("\nQue tipo de Veiculo deseja Comprar Hoje?");
       Console.WriteLine ("\nDigite 1: para comprar Carro");
@@ -96,17 +97,16 @@ public static void Venda(Cliente c){
 
       if(num == 1){
 
-        op = VendaCarro(cliente);//caso finalize a venda e quebra esse while
+        op = VendaCarro(cliente,novoPedido);//caso finalize a venda e quebra esse while
         
 
       }else if(num == 2){
 
-         VendaMoto(cliente);
+        op = VendaMoto(cliente,novoPedido);//filme origin
          
       }else if(num == 0){
-
           op = false;
-          
+          Arquivo.LimparArquivo("pedidoTemporario.txt");
       }else{
 
          Console.WriteLine ("digito invalido, digite 1 ou 2 ");
@@ -115,10 +115,13 @@ public static void Venda(Cliente c){
 
 }
 
-public static bool VendaCarro(Cliente c){
+public static bool VendaCarro(Cliente c,int numPed){
+  
+  int numeroPedido = numPed;
   Console.Clear();//limpa a tela
   Cliente cliente = new Cliente();
   cliente = c;
+  Carro carro = new Carro();
   Console.WriteLine ("\n..........Carros a Venda..........\n");
   Console.WriteLine (Arquivo.VeiculoAVenda("carros.txt",0));
   Console.WriteLine ("\nLegenda acima...........................");
@@ -127,7 +130,8 @@ public static bool VendaCarro(Cliente c){
   int linhas = Arquivo.NumeroLinhas("carros.txt");
   int[] codigos = new int[linhas];
   codigos = Arquivo.ItensColuna("carros.txt",12);
-
+  int qtd = 0;
+  
   while(quebra){
 
 
@@ -146,7 +150,12 @@ public static bool VendaCarro(Cliente c){
           
           quebra = false;
           temCodigo = false;
+          carro.SetCodigo(num);
         }
+      }
+
+      if(num == 0){
+        return true;
       }
 
       if(temCodigo){
@@ -156,10 +165,131 @@ public static bool VendaCarro(Cliente c){
 
   }
 
-  //temCodigo = true;
-
+  double valor = Arquivo.BuscarValor("carros.txt",12,carro.GetCodigo());
+  Console.WriteLine ("\nO valor unitario do veiculo é R$"+valor);
   Console.WriteLine ("\nInforme a quantidade :");
-  int qtd = Convert.ToInt32(Console.ReadLine());
+  qtd = Convert.ToInt32(Console.ReadLine());
+  valor = valor*qtd;
+  cliente.SetValorTotalCompras(valor);
+  Console.WriteLine ("\nO valor total é R$"+valor);
+  }
+
+  if(num != 0){
+  
+     bool op = true;
+
+     while(op){
+       
+        Console.WriteLine ("\nDeseja comprar outro veiculo :");
+        Console.WriteLine ("Digite (1) para Finalizar compra");
+        Console.WriteLine ("Digite (0) para continuar compras");
+        int num2 = Convert.ToInt32(Console.ReadLine());
+        
+        string dia ="";
+        DateTime data = DateTime.Now;
+        if(data.Day <10){
+           dia = "0"+data.Day;
+        }else{
+           dia = ""+data.Day;
+        }
+
+        string mes="";
+
+        if(data.Month<10){
+          mes ="0"+data.Month;
+        }else{
+          mes =""+data.Month;
+        }
+        
+        string ano =""+data.Year;
+        carro.SetCodigo(num);
+
+        Pedido pedido = new Pedido(ano,dia,mes,numeroPedido,qtd,carro);
+        pedido.SetCpf(cliente.GetCpf());
+        pedido.SetValorTotalCompras(cliente.GetValorTotalCompras());
+       
+      
+        if(num2 == 1){
+
+            Pagamento();
+            
+            Arquivo.GerarPedido(pedido,"pedidos.txt");
+            Arquivo.LimparArquivo("pedidoTemporario.txt");
+             op = false;
+             return false;//
+
+        }else if(num2 == 0){
+                Arquivo.GerarPedidoReserva(pedido, "pedidoTemporario.txt");
+                op = false;
+
+        }else{
+             Console.WriteLine ("Opçao invalida");
+        }
+     }
+    
+    
+  }
+  return true;//p voltar a tela de vendas
+}
+
+public static bool VendaMoto(Cliente c, int numPed){
+
+  int numeroPedido = numPed;
+  Console.Clear();//limpa a tela
+  Cliente cliente = new Cliente();
+  cliente = c;
+  Moto moto = new Moto();
+  Console.WriteLine ("\n..........Motos a Venda..........\n");
+  Console.WriteLine (Arquivo.VeiculoAVenda("motos.txt",1));
+  Console.WriteLine ("\nLegenda acima...........................");
+  int num = 0;
+  bool quebra = true;
+  int linhas = Arquivo.NumeroLinhas("motos.txt");
+  int[] codigos = new int[linhas];
+  codigos = Arquivo.ItensColuna("motos.txt",10);
+  int qtd =0;
+  while(quebra){
+
+
+  bool temCodigo = true;
+
+  while(temCodigo){//verifico se digitou um codigo existente
+  
+    Console.WriteLine ("Digite (0) para sair ou");
+    Console.WriteLine ("Digite o codigo do veiculo desejado ");
+    
+    num = Convert.ToInt32(Console.ReadLine());
+
+     for(int i = 0;i<linhas;i++){
+
+      if(num == codigos[i]){
+          
+          quebra = false;
+          temCodigo = false;
+          moto.SetCodigo(num);
+        }
+      }
+
+      if(num == 0){
+        return true;
+      }
+
+      if(temCodigo){
+        Console.WriteLine ("\ncodigo invalido ");
+        
+      }
+
+  }
+
+  double valor = Arquivo.BuscarValor("motos.txt",10,moto.GetCodigo());
+  Console.WriteLine ("\nO valor unitario do veiculo é R$"+valor);
+  Console.WriteLine ("\nInforme a quantidade :");
+  qtd = Convert.ToInt32(Console.ReadLine());
+  valor = valor*qtd;
+  cliente.SetValorTotalCompras(valor);
+  Console.WriteLine ("\nO valor total é R$"+valor);
+
+
   }
 
   if(num != 0){
@@ -172,14 +302,41 @@ public static bool VendaCarro(Cliente c){
         Console.WriteLine ("Digite (0) para continuar compras");
         int num2 = Convert.ToInt32(Console.ReadLine());
 
+        string dia ="";
+        DateTime data = DateTime.Now;
+        if(data.Day <10){
+           dia = "0"+data.Day;
+        }else{
+           dia = ""+data.Day;
+        }
+
+        string mes="";
+
+        if(data.Month<10){
+          mes ="0"+data.Month;
+        }else{
+          mes =""+data.Month;
+        }
+        
+        string ano =""+data.Year;
+        moto.SetCodigo(num);
+
+        Pedido pedido = new Pedido(ano,dia,mes,numeroPedido,qtd,moto);
+        pedido.SetCpf(cliente.GetCpf());
+        pedido.SetValorTotalCompras(cliente.GetValorTotalCompras());
+
         if(num2 == 1){
 
             Pagamento();
-             op = false;
-             return false;//
+            Arquivo.GerarPedido(pedido,"pedidos.txt");
+            Arquivo.LimparArquivo("pedidoTemporario.txt");
+            op = false;
+
+            return false;//
 
         }else if(num2 == 0){
 
+            Arquivo.GerarPedidoReserva(pedido, "pedidoTemporario.txt");
             op = false;
 
         }else{
@@ -190,19 +347,6 @@ public static bool VendaCarro(Cliente c){
     
   }
   return true;//p voltar a tela de vendas
-}
-
-public static void VendaMoto(Cliente c){
-  Console.Clear();//limpa a tela
-  Cliente cliente = new Cliente();
-  cliente = c;
-  Console.WriteLine ("\n..........Motos a Venda..........\n");
-  Console.WriteLine (Arquivo.VeiculoAVenda("motos.txt",1));
-  Console.WriteLine ("\nLegenda acima.........;)");
-  Console.WriteLine ("\nDigite o codigo do veiculo desejado ou ");
-  Console.WriteLine ("Digite (0) para sair");
-  int num = Convert.ToInt32(Console.ReadLine());
-
 }
 
 public static void Cadastro(Pessoa p){
@@ -288,8 +432,8 @@ public static void Loja(Funcionario f){
       while(op){
 
         Console.WriteLine ("\nDigite a ação desejada");
-        Console.WriteLine ("\nDigite (1) para cadastrar um novo veículo");
-        Console.WriteLine ("Digite (2) para vericar os pedidos");
+        Console.WriteLine ("Digite (1) para cadastrar um novo veículo");
+        Console.WriteLine ("Digite (2) para verificar os pedidos");
         Console.WriteLine ("Digite (3) para sair");
          int num = Convert.ToInt32(Console.ReadLine());
 
@@ -324,7 +468,7 @@ public static void Loja(Funcionario f){
 
         Console.WriteLine ("\nEscolha o tipo de cadastro");
         Console.WriteLine ("\nDigite (1) para cadastrar um Carro");
-        Console.WriteLine ("\nDigite (2) para cadastra uma Moto");
+        Console.WriteLine ("Digite (2) para cadastra uma Moto");
         Console.WriteLine ("Digite (3) para sair");
         int num = Convert.ToInt32(Console.ReadLine());
 
