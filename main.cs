@@ -207,8 +207,7 @@ public static bool VendaCarro(Cliente c,int numPed){
         Pedido pedido = new Pedido(ano,dia,mes,numeroPedido,qtd,carro);
         pedido.SetCpf(cliente.GetCpf());
         pedido.SetValorTotalCompras(cliente.GetValorTotalCompras());
-       // Console.WriteLine ("\nqtd "+pedido.GetQtd());
-       // Console.WriteLine ("codigo "+pedido.GetCodigo());
+       
       
         if(num2 == 1){
 
