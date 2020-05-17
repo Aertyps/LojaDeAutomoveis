@@ -59,7 +59,7 @@ class Cartao:Pagamento
   {
     string numero = numc;
 
-    if(Convert.ToInt32(numero)>0 && numero.Length == 16)
+    if(numero.Length == 16)
     {
       numCartao = numero;
     }

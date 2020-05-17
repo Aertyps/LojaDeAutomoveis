@@ -12,11 +12,13 @@ class MainClass {
   Console.Clear();
   Logo();
   Console.WriteLine ("\nFaça seu login ou Registre-se");
- 
+
+ /*para entrar como funcionario tente login fulano senha 1254
+ para entrar como cliente faça seu registro ou tente julia 1234*/
    
   while(op){
 
-    Console.WriteLine ("\nDigite 1: para Logar");//tente login fulano senha 1254
+    Console.WriteLine ("\nDigite 1: para Logar");
     Console.WriteLine ("Digite 2: para se Registrar");
     Console.WriteLine ("Digite 3: para sair");
     num = Convert.ToInt32(Console.ReadLine());
@@ -80,6 +82,7 @@ class MainClass {
 public static void Venda(Cliente c){
   
   int novoPedido = Arquivo.NovoNumeroPedido();
+  double valorTotal = 0;
   Cliente cliente = new Cliente();
   cliente = c;
   bool op = true;
@@ -387,7 +390,7 @@ public static void Cadastro(Pessoa p){
       bool op = true;
 
       while(op){
-        Console.WriteLine ("\nInforme o tipo de pagamento");
+        Console.WriteLine ("\nQual sera a forma de pagamento");
         Console.WriteLine ("\nDigite (1) para dinheiro");
         Console.WriteLine ("Digite (2) para cartao");
         Console.WriteLine ("Digite (3) para cheque");
@@ -402,8 +405,7 @@ public static void Cadastro(Pessoa p){
 
         }else if(num == 2){
 
-          Console.WriteLine ("\nDigite o numero de parcelas");
-          int parcelas = Convert.ToInt32(Console.ReadLine());
+          RegistrarCartao();
           Console.WriteLine ("\nVenda Finalizada");
           Console.WriteLine ("Obrigado pela preferencia!");
           op = false;
@@ -586,6 +588,22 @@ public static void Loja(Funcionario f){
    moto.SetCombustivel(Console.ReadLine());
   
    Arquivo.CadastrarMoto("motos.txt",moto);
+  }
+
+
+  public static void RegistrarCartao()
+  {
+    
+   Cartao  card= new Cartao();
+   Console.WriteLine ("\nInforme o tipo do carro, ex:visa, mastercard...");
+   card.SetTipoCartao(Console.ReadLine());
+   Console.WriteLine ("\nInforme o numero de parcelas");
+   card.SetParcelas(Convert.ToInt32(Console.ReadLine()));
+   Console.WriteLine ("\nInforme o numero do cartão");
+   card.SetNumCartao(Console.ReadLine());
+  
+   Arquivo.CadastrarCartao("cartao.txt",card);
+   
   }
 
 public static void Logo(){
