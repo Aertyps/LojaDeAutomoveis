@@ -14,7 +14,8 @@ class MainClass {
   Console.WriteLine ("\nFaça seu login ou Registre-se");
 
  /*para entrar como funcionario tente login fulano senha 1254
- para entrar como cliente faça seu registro ou tente julia 1234*/
+ para entrar como cliente faça seu registro ou tente julia 1234
+ o sistema detecta pelo login se é funciobario ou cliente*/
    
   while(op){
 
@@ -364,7 +365,7 @@ public static void Cadastro(Pessoa p){
 
       while(op){
 
-        Console.WriteLine ("\nDigite seu Nome");
+        Console.WriteLine ("\nDigite seu Nome completo");
            if(pessoa.SetNome(Console.ReadLine())){
               op = false;
             }
@@ -428,7 +429,7 @@ public static void Cadastro(Pessoa p){
         op = true;
 
         while(op){
-          Console.WriteLine ("\nDigite sua Senha - 4 digitos");
+          Console.WriteLine ("\nDigite sua Senha - 4 digitos exatamente");
           if(pessoa.SetSenha(Console.ReadLine())){
             op = false;
           }
