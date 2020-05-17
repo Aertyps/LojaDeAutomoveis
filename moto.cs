@@ -28,14 +28,16 @@ class Moto:Veiculo{
     return tipoDeTanque;
   }
 
-  public void SetTipoDeTanque(string t){
+  public bool SetTipoDeTanque(string t){
 
     string tanque = t;
 
     if(tanque.Length >= 2){
         tipoDeTanque = tanque;
+        return true;
     }else{
        Console.WriteLine ("Tanque invalido!!!");
+       return false;
     }
     
   }
@@ -44,14 +46,16 @@ class Moto:Veiculo{
     return codigo;
   }
 
-  public void SetCodigo(int c){
+  public bool SetCodigo(int c){
     
     int cod = c;
 
     if(cod > 0){
         codigo = cod;
+        return true;
     }else{
        Console.WriteLine ("codigo invalido!!!");
+       return false;
     }
     
   }
@@ -60,17 +64,19 @@ class Moto:Veiculo{
     return modelo;
   }
 
-  public void SetModelo(string m){
+  public bool SetModelo(string m){
 
     string md = m;
 
     if(md.Length >= 2){
 
         modelo = md;
+        return true;
 
     }else{
 
        Console.WriteLine ("modelo invalido!!!");
+       return false;
     }
    
   }

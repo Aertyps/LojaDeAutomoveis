@@ -3,3 +3,4 @@ Celta hatch 2001 MSN04532 Prata GM VHC flex 2 0 10000 211111
 Gol sedan 2010 OwP2232 Branco Volks CHT gasolina 4 0 19000 223340
 escort sedan 1995 mqt2253 cinza ford cht gasolina 2 0 8000 125565
 fusca hatch 1991 msn2233 amarelo volks ap alcool 3 1 15000 115488
+911 sedan 2020 mst0222 cinza posh GT gasolina 2 1 150000 152233
