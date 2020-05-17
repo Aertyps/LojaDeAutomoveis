@@ -21,12 +21,17 @@ class Pessoa{
    return login;
  }
 
- public void SetLogin(string l){
+ public bool SetLogin(string l){
+
    string valor = l;
+
    if(valor.Length > 4){//login maior que 4 digitos
      login = l;
+     return true;
+
     }else{
        Console.WriteLine ("Login invalido,quantidade de caracteres menor que  5 !!!");
+       return false;
     }
  
  }
@@ -49,17 +54,19 @@ public string GetSenha(){
    return senha;
  }
 
- public void SetSenha(string s){
+ public bool SetSenha(string s){
 
    string valor = s;
 
    if(valor.Length == 4){//senha igual a 4 digitos
 
       senha = s;
+      return true;
 
     }else{
 
        Console.WriteLine ("senha invalida!!!");
+       return false;
     }
  
  }
@@ -68,12 +75,15 @@ public string GetSenha(){
    return nome;
  }
 
- public void SetNome(string n){
+ public bool SetNome(string n){
 
    if(VerificaPalavra(n)){
      nome = n;
+     return true;
+
     }else{
        Console.WriteLine ("Nome invalido!!!");
+       return false;
     }
  
  }
@@ -82,10 +92,15 @@ public string GetSenha(){
    return cpf;
  }
 
- public void SetCpf(string c){
+ public bool SetCpf(string c){
 
    if(VerificarCpf(c)){
       cpf = c;
+      return true;
+
+   }else{
+      return false;
+
    }
    
  }
@@ -94,7 +109,7 @@ public string GetSenha(){
    return dataNascimento;
  }
  
- public void SetDataNascimento(string ano,string dia,string mes){
+ public bool SetDataNascimento(string ano,string dia,string mes){
 
   if(VerificaData(ano,4)){
 
@@ -105,15 +120,20 @@ public string GetSenha(){
           dataNascimento = new DateTime(Convert.ToInt32(ano),Convert.ToInt32(mes),Convert.ToInt32(dia));
       }else{
          Console.WriteLine ("data invalida!!!");
+         return false;
       }
    
     }else{
        Console.WriteLine ("data invalida!!!");
+       return false;
     }
     
   }else{
      Console.WriteLine ("data invalida!!!");
+     return false;
   }
+
+  return true;
    
  }
 
@@ -128,9 +148,16 @@ public int GetTelefone(){
   return telefone;
 }
 
-public void SetTelefone(string t){
+public bool SetTelefone(string t){
+
   if(VerificaTelefone(t)){
+
     telefone = Convert.ToInt32(t);
+    return true;
+
+  }else{
+
+    return false;
   }
  
 }

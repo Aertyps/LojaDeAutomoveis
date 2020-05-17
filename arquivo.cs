@@ -479,9 +479,10 @@ public static string ConteudoDeArquivo(string arquivo)
     return linhas;
   }
 
-  public static string ListarPedidos(){
+  public static string ListarPedidos(string arquivo){
     
-    FileStream meuArq = new FileStream("pedidos.txt", FileMode.Open, FileAccess.Read);
+    string arq = arquivo;
+    FileStream meuArq = new FileStream(arq, FileMode.Open, FileAccess.Read);
     StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
     int espaco = 0;
     string  pedido = "";
@@ -726,6 +727,45 @@ public static double BuscarValor(string arq,int col,int cod){
               //meuArq.Close();
             }        
       }
+     
+    }      
+    sr.Close();
+    meuArq.Close();
+    
+    return valor;
+  }
+
+  public static double SomaValor(string arq){
+
+    string arquivo = arq;
+    FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Read);
+    StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
+    int espaco = 0;
+    double  valor = 0;
+
+    while(!sr.EndOfStream){
+      string str = sr.ReadLine();
+      string palavras ="";
+      espaco = 0;
+
+      for(int i2 = 0;i2<str.Length; i2++)
+      {
+
+        if(str[i2] ==' '){
+
+          espaco++;
+          palavras="";
+
+       }else{
+         if(str[i2]!='R' && str[i2]!='$'){
+           palavras+=str[i2];
+         }
+         
+       }
+
+      }
+      valor += Convert.ToSingle(palavras);
+       
      
     }      
     sr.Close();

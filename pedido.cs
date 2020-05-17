@@ -29,8 +29,8 @@ class Pedido:Cliente{
     SetDataPedido( a, d, m);
     SetNumeroPedido(numero);
     SetQtd(qtd);
-    Moto moto1 = new Moto();
-    moto1 = moto;
+    //Moto moto1 = new Moto();
+   // moto1 = moto;
     SetCodigo(moto.GetCodigo());
   }
 

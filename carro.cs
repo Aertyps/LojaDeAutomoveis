@@ -28,14 +28,16 @@ class Carro:Veiculo{
     return qtdPortas;
   }
 
-  public void SetQtdPortas(int p){
+  public bool SetQtdPortas(int p){
 
     int porta = p;
 
     if(porta >= 2){
         qtdPortas= porta;
+        return true;
     }else{
        Console.WriteLine ("quantidade de portas invalida!!!");
+       return false;
     }
     
   }
@@ -43,14 +45,16 @@ class Carro:Veiculo{
     return codigo;
   }
 
-  public void SetCodigo(int c){
+  public bool SetCodigo(int c){
     
     int cod = c;
 
     if(cod > 0){
         codigo = cod;
+        return true;
     }else{
        Console.WriteLine ("codigo invalido!!!");
+       return false;
     }
     
   }
@@ -58,8 +62,9 @@ class Carro:Veiculo{
     return carroceria;
   }
 
-  public void SetCarroceria(bool c){
+  public bool SetCarroceria(bool c){
     carroceria = c;
+    return true;
   }
 
 }

@@ -210,12 +210,13 @@ public static bool VendaCarro(Cliente c,int numPed){
         Pedido pedido = new Pedido(ano,dia,mes,numeroPedido,qtd,carro);
         pedido.SetCpf(cliente.GetCpf());
         pedido.SetValorTotalCompras(cliente.GetValorTotalCompras());
-       
+        pedido.SetDataNascimento(cliente.GetDataNascimento());
+        pedido.SetNome(cliente.GetNome());
       
         if(num2 == 1){
 
-            Pagamento();
-            
+            Console.WriteLine ("\nSua Compra Total acima, o valor total da compra é R$"+ListaCompraTotal(pedido));
+            Pagamento(pedido);
             Arquivo.GerarPedido(pedido,"pedidos.txt");
             Arquivo.LimparArquivo("pedidoTemporario.txt");
              op = false;
@@ -327,10 +328,13 @@ public static bool VendaMoto(Cliente c, int numPed){
         Pedido pedido = new Pedido(ano,dia,mes,numeroPedido,qtd,moto);
         pedido.SetCpf(cliente.GetCpf());
         pedido.SetValorTotalCompras(cliente.GetValorTotalCompras());
+        pedido.SetDataNascimento(cliente.GetDataNascimento());
+        pedido.SetNome(cliente.GetNome());
 
         if(num2 == 1){
 
-            Pagamento();
+             Console.WriteLine ("\nSua Compra Total acima, o valor total da compra é R$"+ListaCompraTotal(pedido));
+            Pagamento(pedido);
             Arquivo.GerarPedido(pedido,"pedidos.txt");
             Arquivo.LimparArquivo("pedidoTemporario.txt");
             op = false;
@@ -356,41 +360,93 @@ public static void Cadastro(Pessoa p){
 
   Pessoa pessoa = new Pessoa();
   pessoa = p;
+  bool op = true;
 
-  Console.WriteLine ("\nDigite seu Nome");
-        pessoa.SetNome(Console.ReadLine());
+      while(op){
+
+        Console.WriteLine ("\nDigite seu Nome");
+           if(pessoa.SetNome(Console.ReadLine())){
+              op = false;
+            }
+        }
+       
+       op = true;
+
+      while(op){
 
         Console.WriteLine ("\nDigite seu Cpf");
-        pessoa.SetCpf(Console.ReadLine());
+        if(pessoa.SetCpf(Console.ReadLine())){
+           op = false;
+        }
+
+      }
+
+      op = true;
 
         Console.WriteLine ("Digite sua Data de Nascimento :");
+
+      while(op){
+
         Console.WriteLine ("\nDigite o dia de nascimento - 2 digitos");
         string dia = Console.ReadLine();
-        
+
+      
+
         Console.WriteLine ("\nDigite o mes - 2 digitos");
         string mes = Console.ReadLine();
 
         Console.WriteLine ("\nDigite o ano - 4 digitos");
         string ano = Console.ReadLine();
-        pessoa.SetDataNascimento(ano,dia,mes);
 
-        Console.WriteLine ("\nDigite seu Telefone(celular) - sem ddd");
-        pessoa.SetTelefone(Console.ReadLine());
+        if(pessoa.SetDataNascimento(ano,dia,mes)){
+          op = false;
+        }
+        
+        }
+        
+        op = true;
+
+        while(op){
+          Console.WriteLine ("\nDigite seu Telefone(celular) - sem ddd 9 digitos");
+
+          if(pessoa.SetTelefone(Console.ReadLine())){
+            op = false;
+          }
+        }
+        
+        op = true;
+
+        while(op){
 
         Console.WriteLine ("\nDigite seu Login - maior que 4 digitos");
-        pessoa.SetLogin(Console.ReadLine());
+        if(pessoa.SetLogin(Console.ReadLine())){
+          op = false;
+        }
 
-        Console.WriteLine ("\nDigite sua Senha - 4 digitos");
-        pessoa.SetSenha(Console.ReadLine());
+        }
+
+        op = true;
+
+        while(op){
+          Console.WriteLine ("\nDigite sua Senha - 4 digitos");
+          if(pessoa.SetSenha(Console.ReadLine())){
+            op = false;
+          }
+        }
+        
 
         Arquivo.Cadastro("pessoa.txt",pessoa);//insiro os dados no pessoa.txt
   }
 
-  public static void Pagamento(){
-      bool op = true;
+  public static void Pagamento(Pedido p){
+ 
+    Pedido pedido = new Pedido();
+    pedido = p;
+    bool op = true;
 
       while(op){
-        Console.WriteLine ("\nQual sera a forma de pagamento");
+        
+        Console.WriteLine ("\nQual sera a forma de pagamento ?");
         Console.WriteLine ("\nDigite (1) para dinheiro");
         Console.WriteLine ("Digite (2) para cartao");
         Console.WriteLine ("Digite (3) para cheque");
@@ -398,20 +454,23 @@ public static void Cadastro(Pessoa p){
         int num = Convert.ToInt32(Console.ReadLine());
 
         if(num == 1){
-
+          NotaFiscal(pedido,"dinheiro");
           Console.WriteLine ("\nVenda Finalizada");
           Console.WriteLine ("Obrigado pela preferencia!");
+
           op = false;
 
         }else if(num == 2){
 
           RegistrarCartao();
+          NotaFiscal(pedido,"Cartao");
           Console.WriteLine ("\nVenda Finalizada");
           Console.WriteLine ("Obrigado pela preferencia!");
           op = false;
 
         }else if(num == 3){
 
+          NotaFiscal(pedido,"Cheque");
           Console.WriteLine ("\nVenda Finalizada");
           Console.WriteLine ("Obrigado pela preferencia!");
           op = false;
@@ -423,6 +482,41 @@ public static void Cadastro(Pessoa p){
       }
 
   }
+
+public static void NotaFiscal(Pedido p, string tipo){
+
+  Pedido pedido = new Pedido();
+  pedido = p;
+  string texto ="";
+  texto+="\n..................................................................................................................\n";
+  Console.WriteLine (texto);
+  Console.WriteLine ("\nNOTA FISCAL NUMERO "+(5000+pedido.GetNumeroPedido()));
+  Console.WriteLine (texto);
+  Console.WriteLine ("Comprador "+pedido.GetNome()+" Cpf "+pedido.GetCpf()+" Idade "+pedido.GetIdade()+"\n");
+  Console.WriteLine ("Descrição da compra : ");
+  Console.WriteLine ("Valor Total da Compra R$"+ListaCompraTotal(pedido));
+  Console.WriteLine ("Forma de Pagamento "+tipo);
+  Console.WriteLine (texto);
+}
+
+public static double ListaCompraTotal(Pedido p){
+
+   Pedido pedido = new Pedido();
+   pedido = p;
+   string texto ="";
+
+   
+   texto = Arquivo.ListarPedidos("pedidoTemporario.txt"); //carrego os pedidos  
+  
+   texto += "(1)"+pedido.GetNumeroPedido()+" (2)"+pedido.GetCpf()+" (3)"+pedido.GetQtd()+" (4)"+pedido.GetDataPedido().Day+"/"+pedido.GetDataPedido().Month+"/"+pedido.GetDataPedido().Year+" (5)"+pedido.GetCodigo()+" (6)R$"+pedido.GetValorTotalCompras();
+
+   texto+="\n..................................................................................................................\n";
+   
+   Console.WriteLine (texto);
+   double valorTotal = Arquivo.SomaValor("pedidoTemporario.txt") + pedido.GetValorTotalCompras();
+   
+   return valorTotal;
+}
 
 public static void Loja(Funcionario f){
 
@@ -497,7 +591,7 @@ public static void Loja(Funcionario f){
   public static void VerificarPedidos(){
     
      Console.WriteLine ("\nLista de Pedidos");
-     string pedido = Arquivo.ListarPedidos(); //carrego os pedidos  
+     string pedido = Arquivo.ListarPedidos("pedidos.txt"); //carrego os pedidos  
      Console.WriteLine (pedido);
      
   }
@@ -505,45 +599,129 @@ public static void Loja(Funcionario f){
   public static void RegistrarCarro(){
 
    Carro carro = new Carro();
-   Console.WriteLine ("\nInforme o nome do carro");
-   carro.SetNome(Console.ReadLine());
-   Console.WriteLine ("\nInforme o numero de portas");
-   carro.SetQtdPortas(Convert.ToInt32(Console.ReadLine()));
-   Console.WriteLine ("\nTem carroceria (s) para sim ou (n) para não?");
-   string c = Console.ReadLine();
-   
-   if(c == "s"){
-     carro.SetCarroceria(true);
-   }else if(c== "n"){
-      carro.SetCarroceria(false);
+   bool op = true;
+
+   while(op){
+
+     Console.WriteLine ("\nInforme o nome do carro");
+     if(carro.SetNome(Console.ReadLine())){
+       op = false;
+     }
    }
    
-   Console.WriteLine ("\nInforme o codigo");
-   carro.SetCodigo(Convert.ToInt32(Console.ReadLine()));
+   op = true;
 
-   Console.WriteLine ("\nInforme o tipo de Carro");
-   carro.SetTipo(Console.ReadLine());
+   while(op){
+    Console.WriteLine ("\nInforme o numero de portas");
+
+      if(carro.SetQtdPortas(Convert.ToInt32(Console.ReadLine()))){
+        op = false;
+      }
+
+   }
+
+  op = true;
+
+   while(op){
+    Console.WriteLine ("\nTem carroceria (s) para sim ou (n) para não?");
+    string c = Console.ReadLine();
+    
+    if(c == "s"){
+      if(carro.SetCarroceria(true)){
+          op = false;
+      }
+    }else if(c== "n"){
+        if(carro.SetCarroceria(false)){
+          op = false;
+        }
+    }
+   }
+   
+   op = true;
+
+   while(op){
+    Console.WriteLine ("\nInforme o codigo");
+
+    if(carro.SetCodigo(Convert.ToInt32(Console.ReadLine()))){
+      op = false;
+    }
+   }
+
+   op = true;
+
+   while(op){
+    Console.WriteLine ("\nInforme o tipo de Carro");
+    if(carro.SetTipo(Console.ReadLine())){
+      op = false;
+    }
+   }
+
+   op = true;
+
+   while(op){
 
    Console.WriteLine ("\nInforme o ano de fabricação");
-   carro.SetDataFabricacao(Console.ReadLine());
 
-   Console.WriteLine ("\nInforme a placa");
-   carro.SetPlaca(Console.ReadLine());
+   if(carro.SetDataFabricacao(Console.ReadLine())){
+     op = false;
+   }
 
+   }
+
+   op = true;
+
+   while(op){
+    Console.WriteLine ("\nInforme a placa");
+    if(carro.SetPlaca(Console.ReadLine())){
+      op = false;
+    }
+   }
+
+   op = true;
+
+   while(op){
    Console.WriteLine ("\nInforme o valor");
-   carro.SetValor(Convert.ToSingle(Console.ReadLine()));
 
+    if(carro.SetValor(Convert.ToSingle(Console.ReadLine()))){
+      op = false;
+    }
+   }
+
+   op = true;
+
+   while(op){
    Console.WriteLine ("\nInforme a cor");
-   carro.SetCor(Console.ReadLine());
+   if(carro.SetCor(Console.ReadLine())){
+     op = false;
+   }
+   }
 
+   op = true;
+
+   while(op){
    Console.WriteLine ("\nInforme a marca");
-   carro.SetMarca(Console.ReadLine());
+   if(carro.SetMarca(Console.ReadLine())){
+     op = false;
+   }
+   }
 
+   op = true;
+
+   while(op){
    Console.WriteLine ("\nInforme o motor");
-   carro.SetMotor(Console.ReadLine());
+   if(carro.SetMotor(Console.ReadLine())){
+     op = false;
+   }
+   }
 
+   op = true;
+
+   while(op){
    Console.WriteLine ("\nInforme o combustivel");
-   carro.SetCombustivel(Console.ReadLine());
+   if(carro.SetCombustivel(Console.ReadLine())){
+     op = false;
+   }
+   }
   
    Arquivo.CadastrarVeiculo("carros.txt",carro);
    
@@ -551,42 +729,106 @@ public static void Loja(Funcionario f){
 
   public static void RegistrarMoto(){
    Moto moto = new Moto();
+   bool op = true;
+
+   while(op){
    Console.WriteLine ("\nInforme o nome do moto");
-   moto.SetNome(Console.ReadLine());
+   if(moto.SetNome(Console.ReadLine())){
+     op = false;
+   }
+   }
 
-  Console.WriteLine ("\nInforme o Tipo");
-   moto.SetTipo(Console.ReadLine());
+   op = true;
 
+   while(op){
+   Console.WriteLine ("\nInforme o Tipo");
+   if(moto.SetTipo(Console.ReadLine())){
+     op = false;
+   }
+   }
+
+   op = true;
+
+   while(op){
    Console.WriteLine ("\nInforme o codigo");
-   moto.SetCodigo(Convert.ToInt32(Console.ReadLine()));
+   if(moto.SetCodigo(Convert.ToInt32(Console.ReadLine()))){
+     op = false;
+   }
+   }
 
+   op = true;
+
+   while(op){
    Console.WriteLine ("\nInforme o tipo de tamque da moto");
-   moto.SetTipoDeTanque(Console.ReadLine());
+   if(moto.SetTipoDeTanque(Console.ReadLine())){
+     op = false;
+   }
+   }
 
+   op = true;
+
+   while(op){
    Console.WriteLine ("\nInforme o ano de fabricação");
-   moto.SetDataFabricacao(Console.ReadLine());
+   if(moto.SetDataFabricacao(Console.ReadLine())){
+     op = false;
+   }
+   }
+    op = true;
 
+   while(op){
    Console.WriteLine ("\nInforme a placa");
-   moto.SetPlaca(Console.ReadLine());
+   if(moto.SetPlaca(Console.ReadLine())){
+     op = false;
+   }
+   }
 
+   op = true;
+   while(op){
    Console.WriteLine ("\nInforme o modelo");
-   moto.SetModelo(Console.ReadLine());
+   if(moto.SetModelo(Console.ReadLine())){
+     op = false;
+   }
+   }
+    op = true;
 
+   while(op){
    Console.WriteLine ("\nInforme o valor");
-   moto.SetValor(Convert.ToSingle(Console.ReadLine()));
+   if(moto.SetValor(Convert.ToSingle(Console.ReadLine()))){
+     op = false;
+   }
+   }
+    op = true;
 
+   while(op){
    Console.WriteLine ("\nInforme a cor");
-   moto.SetCor(Console.ReadLine());
+   if(moto.SetCor(Console.ReadLine())){
+     op = false;
+   }
+   }
+    op = true;
 
+   while(op){
    Console.WriteLine ("\nInforme a marca");
-   moto.SetMarca(Console.ReadLine());
+   if(moto.SetMarca(Console.ReadLine())){
+     op = false;
+   }
+   }
+    op = true;
 
+   while(op){
    Console.WriteLine ("\nInforme o motor");
-   moto.SetMotor(Console.ReadLine());
+   if(moto.SetMotor(Console.ReadLine())){
+     op = false;
+   }
+   }
+    op = true;
 
+   while(op){
    Console.WriteLine ("\nInforme o combustivel");
-   moto.SetCombustivel(Console.ReadLine());
-  
+   if(moto.SetCombustivel(Console.ReadLine())){
+     op = false;
+   }
+   }
    Arquivo.CadastrarMoto("motos.txt",moto);
   }
 
