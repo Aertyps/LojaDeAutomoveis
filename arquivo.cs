@@ -466,9 +466,10 @@ public static string ConteudoDeArquivo(string arquivo)
     FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Read);
     StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
     int linhas = 0;
-   
+    //string str;
+    
     while(!sr.EndOfStream){
-      string str = sr.ReadLine();
+      sr.ReadLine();
       linhas++;
     }
 
@@ -564,5 +565,173 @@ public static string ConteudoDeArquivo(string arquivo)
     meuArq.Close();
  }
 
+ public static void CadastrarCartao(string arquivo ,Cartao card)
+ {
+  Cartao cartao = new Cartao();
+  string str = "";
+  cartao = card;
+
+
+  str = ConteudoDeArquivo(arquivo);
+  FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Write);
+  StreamWriter sw = new StreamWriter(meuArq, Encoding.UTF8);
+
+  str+= "NF:"+cartao.GetNotaFiscal()+" ValorTotal:R$"+cartao.GetValorTotal()+"Cartao:"+cartao.GetTipoCartao()+" - Parcelas:"+cartao.GetParcelas()+" - Número do cartão:"+cartao.GetNumCartao();
+
+  sw.WriteLine(str);  
+  sw.Close();
+  meuArq.Close();
+ }
+
+  public static void GerarPedidoReserva(Pedido p, string arq){
+
+   Pedido pedido = new Pedido();
+   pedido = p;
+   string arquivo = arq;
+   string str ="";
+
+	 str = ConteudoDeArquivo(arquivo);
+
+   FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Write);
+   StreamWriter sw = new StreamWriter(meuArq, Encoding.UTF8);
+	 
+    str += ""+pedido.GetNumeroPedido()+" "+pedido.GetCpf()+" "+pedido.GetQtd()+" "+pedido.GetDataPedido().Day+"/"+pedido.GetDataPedido().Month+"/"+pedido.GetDataPedido().Year+" "+pedido.GetCodigo()+" R$"+pedido.GetValorTotalCompras();
+
+   sw.WriteLine(str);
+     
+   sw.Close();
+   meuArq.Close();
+
+   }
+
+public static void GerarPedido(Pedido p, string arq){
+
+   Pedido pedido = new Pedido();
+   pedido = p;
+   string arquivo = arq;
+   string str ="";
+
+	 str = ConteudoDeArquivo(arquivo);
+   str += ConteudoDeArquivo("pedidoTemporario.txt");
+
+   FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Write);
+   StreamWriter sw = new StreamWriter(meuArq, Encoding.UTF8);
+	 
+   str += ""+pedido.GetNumeroPedido()+" "+pedido.GetCpf()+" "+pedido.GetQtd()+" "+pedido.GetDataPedido().Day+"/"+pedido.GetDataPedido().Month+"/"+pedido.GetDataPedido().Year+" "+pedido.GetCodigo()+" R$"+pedido.GetValorTotalCompras();
+
+   sw.WriteLine(str);
+     
+   sw.Close();
+   meuArq.Close();
+
+   }
+
+public static void LimparArquivo(string arq){
+
+    string arquivo = arq;
+          //string str ="";
+    FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Write);
+    StreamWriter sw = new StreamWriter(meuArq, Encoding.UTF8);
+    meuArq.SetLength(0);
+    
+    sw.Close();    
+    meuArq.Close();
+   
+  }
+
+public static int NovoNumeroPedido(){
+
+  int pedido = 0;
+
+    
+    FileStream meuArq = new FileStream("pedidos.txt", FileMode.Open, FileAccess.Read);
+    StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
+    int espaco = 0;
+   
+    //int i = 0;
+
+    while(!sr.EndOfStream){
+      string str = sr.ReadLine();
+      string palavras ="";
+      espaco = 0;
+
+      for(int i2 = 0;i2<str.Length; i2++)
+      {
+
+        if(str[i2] ==' '){
+          espaco++;
+          if(espaco == 1){
+            pedido = Convert.ToInt32(palavras);
+          }
+          
+          palavras="";
+
+       }else{
+         palavras+=str[i2];
+       }  
+
+      }
+      espaco++;
+      
+          
+      //i++;
+     
+    }      
+    sr.Close();
+    meuArq.Close();
+
+    return ++pedido;
+}
+
+public static double BuscarValor(string arq,int col,int cod){
+
+    string arquivo = arq;
+    int coluna = col;
+    int codigo = cod;
+    FileStream meuArq = new FileStream(arquivo, FileMode.Open, FileAccess.Read);
+    StreamReader sr = new StreamReader(meuArq, Encoding.UTF8);
+    int espaco = 0;
+    double  valor = 0;
+
+    while(!sr.EndOfStream){
+      string str = sr.ReadLine();
+      string palavras ="";
+      espaco = 0;
+
+      for(int i2 = 0;i2<str.Length; i2++)
+      {
+
+        if(str[i2] ==' '){
+
+          espaco++;
+          if(espaco == (coluna-1)){
+            valor = Convert.ToSingle(palavras);
+          }
+          palavras="";
+
+       }else{
+         palavras+=str[i2];
+       }
+
+      }
+
+       espaco++;
+
+       if(espaco == coluna){
+
+          if(Convert.ToInt32(palavras) == codigo){
+
+              return valor; 
+              //sr.Close();
+              //meuArq.Close();
+            }        
+      }
+     
+    }      
+    sr.Close();
+    meuArq.Close();
+    
+    return valor;
+  }
 
 }

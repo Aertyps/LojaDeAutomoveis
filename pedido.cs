@@ -9,6 +9,7 @@ class Pedido:Cliente{
   private DateTime dataPedido;
   private int numeroPedido;
   private int qtd;
+  private int codigo;
 //-veicullo: Carro/Moto
   public Pedido(){
 
@@ -20,6 +21,8 @@ class Pedido:Cliente{
     SetQtd(qtd);
     Carro carro = new Carro();
     carro = c;
+    SetCodigo(carro.GetCodigo());
+    
   }
 
    public Pedido(string a,string d,string m,int numero,int qtd,Moto moto){
@@ -28,6 +31,11 @@ class Pedido:Cliente{
     SetQtd(qtd);
     Moto moto1 = new Moto();
     moto1 = moto;
+    SetCodigo(moto.GetCodigo());
+  }
+
+  public int GetCodigo(){
+    return codigo;
   }
 
   public DateTime GetDataPedido(){
@@ -64,14 +72,28 @@ class Pedido:Cliente{
           }
   }
 
-  public void SetQtd(int q){
+  public void SetQtd(int qt){
 
+    int q = qt;
     if(q > 0){
 
       qtd = q;
 
     }else{
       Console.WriteLine ("quantidade invalida!!!");
+    }
+  }
+
+  public void SetCodigo(int cod){
+
+    int q = cod;
+    
+    if(q > 0){
+
+      codigo = q;
+
+    }else{
+      Console.WriteLine ("codigo invalido!!!");
     }
   }
 

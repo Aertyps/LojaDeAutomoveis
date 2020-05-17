@@ -5,6 +5,12 @@ using System.Text;
 
 class Pagamento: Pedido
 {
+  private DateTime dataPagamento;
+  private string notaFiscal;
+  private string tipoPagamento;
+  private double valorTotal;
+  private double desconto;
+  
   public Pagamento(int numped, string ano, string dia, string mes, int qnt)
   {
     SetNumeroPedido(numped);
@@ -15,12 +21,6 @@ class Pagamento: Pedido
   public Pagamento(){
     
   }
-
-  private DateTime dataPagamento;
-  private string notaFiscal;
-  private string tipoPagamento;
-  private double valorTotal;
-  //desconto? add desconto no pedido e subtrair do valor total
 
   public DateTime GetDataPagamento()
   {
@@ -69,5 +69,34 @@ class Pagamento: Pedido
     return valorTotal;
   }
 
-  //public void qnt*valunit 
+  public void SetValorTotal(double vtpedido)
+  {
+    double valorTotal = vtpedido;
+  }
+
+  public string GetTipoPagamento()
+  {
+    return tipoPagamento;
+  }
+
+  public void SetTipoPagamento()
+  {
+    //adicionar metodo de tipo de pagamento
+  }
+  public double GetDesconto()
+  {
+    return desconto;
+  }
+  
+  public void SetDesconto()
+  {
+    if(tipoPagamento == "cartao" || tipoPagamento == "cheque")
+    {
+      valorTotal = valorTotal;
+    }
+    if(tipoPagamento =="dinheiro")
+    {
+      valorTotal = valorTotal*0.8;
+    } 
+  }
 }
