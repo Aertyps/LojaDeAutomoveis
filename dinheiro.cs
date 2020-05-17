@@ -9,8 +9,8 @@ class Dinheiro:Pagamento
 
   public Dinheiro(Pagamento pgto, double vlrpgto)
   {
-    Pagamento pagamento = new Pagamento();
-    pagamento = pgto;
+   // Pagamento pagamento = new Pagamento();
+   // pagamento = pgto;
     SetValorPagamento(vlrpgto);
   }
 

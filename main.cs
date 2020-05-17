@@ -12,11 +12,13 @@ class MainClass {
   Console.Clear();
   Logo();
   Console.WriteLine ("\nFaça seu login ou Registre-se");
- 
+
+ /*para entrar como funcionario tente login fulano senha 1254
+ para entrar como cliente faça seu registro ou tente julia 1234*/
    
   while(op){
 
-    Console.WriteLine ("\nDigite 1: para Logar");//tente login fulano senha 1254
+    Console.WriteLine ("\nDigite 1: para Logar");
     Console.WriteLine ("Digite 2: para se Registrar");
     Console.WriteLine ("Digite 3: para sair");
     num = Convert.ToInt32(Console.ReadLine());
@@ -80,6 +82,7 @@ class MainClass {
 public static void Venda(Cliente c){
   
   int novoPedido = Arquivo.NovoNumeroPedido();
+  double valorTotal = 0;
   Cliente cliente = new Cliente();
   cliente = c;
   bool op = true;
@@ -387,7 +390,7 @@ public static void Cadastro(Pessoa p){
       bool op = true;
 
       while(op){
-        Console.WriteLine ("\nInforme o tipo de pagamento");
+        Console.WriteLine ("\nQual sera a forma de pagamento");
         Console.WriteLine ("\nDigite (1) para dinheiro");
         Console.WriteLine ("Digite (2) para cartao");
         Console.WriteLine ("Digite (3) para cheque");
